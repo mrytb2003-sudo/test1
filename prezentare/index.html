@@ -107,9 +107,20 @@ svg.ring text{font:600 17px Inter;letter-spacing:.14em;text-transform:uppercase;
 #s7 .right p b{color:var(--fg);font-weight:600}
 
 /* 8 + 9 test */
-#s8{background:var(--acc)}
-#s8 .k,#s8 .k b{color:rgba(11,11,11,.7)}
-#s8 .src{color:rgba(11,11,11,.55)}
+#s8{background:var(--bg)}
+#s8 .gm{position:absolute;left:0;top:0;width:1920px;height:1080px;display:block}
+#s8 .ghud{position:absolute;inset:0;pointer-events:none}
+#s8 .gk{position:absolute;top:76px;left:160px;font:600 17px/1 Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+#s8 .gk b{color:var(--acc);font-weight:600}
+#s8 .gt{position:absolute;left:160px;top:140px;font-size:84px}
+#s8 .gsub{position:absolute;left:160px;top:236px;margin:0;font:400 26px/1.4 Inter;color:var(--mute)}
+#s8 .gscore{position:absolute;right:160px;top:150px;text-align:right;font:500 22px/1.4 Inter;color:var(--mute)}
+#s8 .gscore b{display:block;font:850 76px/1 Archivo;font-stretch:76%;color:var(--fg);letter-spacing:-.02em}
+#s8 .ghint{position:absolute;right:160px;bottom:54px;transform:translateY(-28px);font:500 15px Inter;letter-spacing:.06em;color:var(--dim)}
+#s8 .end{position:absolute;inset:0;opacity:0}
+#s8 .end .k,#s8 .end .k b{color:rgba(11,11,11,.7)}
+#s8.done .src{color:rgba(11,11,11,.55)}
+#s8 .qq,#s8 .tw .H{color:var(--ink)}
 .test .qq{position:absolute;left:160px;top:150px;font-size:76px;max-width:1500px}
 #s8 .qq,#s8 .tw .H{color:var(--ink)}
 .test .tw{position:absolute;left:160px;top:380px;width:1600px;display:grid;grid-template-columns:800px 800px;grid-auto-rows:150px}
@@ -328,19 +339,29 @@ body.print #s8 .pn{color:rgba(11,11,11,.55)}
 
 <!-- 8 -->
 <section class="slide test" id="s8">
-  <div class="k">Test cu sala · <b>30 de secunde</b></div>
-  <h2 class="H qq split">Care dintre aceste trăsături din scala lui Aaker descriu un caracter?</h2>
-  <div class="tw">
-    <div class="cell"><span class="H">Onest</span></div>
-    <div class="cell"><span class="H">Inteligent</span></div>
-    <div class="cell"><span class="H">Imaginativ</span></div>
-    <div class="cell"><span class="H">Îndrăzneț</span></div>
-    <div class="cell"><span class="H">Occidental</span></div>
-    <div class="cell"><span class="H">Vesel</span></div>
-    <div class="cell"><span class="H">De clasă superioară</span></div>
-    <div class="cell"><span class="H">De oraș mic</span></div>
+  <canvas class="gm" width="1920" height="1080"></canvas>
+  <div class="ghud">
+    <div class="gk">Test cu sala · <b>Satul trăsăturilor</b></div>
+    <h2 class="H gt">Descrie un caracter?</h2>
+    <p class="gsub">Opt felinare, opt trăsături din scala lui Aaker. Sala decide la fiecare.</p>
+    <div class="gscore"></div>
+    <div class="ghint">săgeți: mers · Spațiu: alege · Esc: sari peste joc</div>
   </div>
-  <div class="timer"><i></i></div>
+  <div class="end">
+    <div class="k">Test cu sala</div>
+    <h2 class="H qq">Care dintre aceste trăsături din scala lui Aaker descriu un caracter?</h2>
+    <div class="tw">
+      <div class="cell"><span class="H">Onest</span></div>
+      <div class="cell"><span class="H">Inteligent</span></div>
+      <div class="cell"><span class="H">Imaginativ</span></div>
+      <div class="cell"><span class="H">Îndrăzneț</span></div>
+      <div class="cell"><span class="H">Occidental</span></div>
+      <div class="cell"><span class="H">Vesel</span></div>
+      <div class="cell"><span class="H">De clasă superioară</span></div>
+      <div class="cell"><span class="H">De oraș mic</span></div>
+    </div>
+  </div>
+  <div class="src">Trăsături: Aaker, 1997, în Azoulay și Kapferer, 2003, Tabelul 1, p. 149 și p. 152; verdicte: pp. 151–152</div>
 </section>
 
 <!-- 9 -->
@@ -591,6 +612,234 @@ function draw(tl, segs, pos, o){
   });
 }
 
+
+/* ---------- jocul: Satul trăsăturilor (original) ---------- */
+var TRAITS = [
+  {w: "Onest", ok: true,  why: "Necontestat în articol."},
+  {w: "Inteligent", ok: false, why: "Abilitate cognitivă. Psihologia o scoate din personalitate (p. 151)."},
+  {w: "Imaginativ", ok: true,  why: "Necontestat în articol."},
+  {w: "Occidental", ok: false, why: "Ține de valori și cultură, nu de caracter (p. 152)."},
+  {w: "Îndrăzneț", ok: true,  why: "Necontestat în articol."},
+  {w: "De clasă superioară", ok: false, why: "Descrie clientul tipic, nu brandul (p. 152)."},
+  {w: "Vesel", ok: true,  why: "Necontestat în articol."},
+  {w: "De oraș mic", ok: false, why: "A scăzut fiabilitatea scalei în studiul britanic (p. 152)."}
+];
+var game = null;
+function Game(el, onDone){
+  var cv = $(".gm", el), cx = cv.getContext("2d"), W = 1920, H = 1080;
+  var scoreEl = $(".gscore", el);
+  var rnd = (function(seed){ return function(){ seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; })(7);
+  var pathY = function(x){ return 650 + Math.sin(x / 260) * 70 + Math.sin(x / 97) * 12; };
+  var lanterns = TRAITS.map(function(t, i){
+    var x = 330 + i * 168, side = i % 2 ? 1 : -1;
+    return {t: t, x: x, y: pathY(x) + side * 118, side: side, state: 0, ans: null, glow: 0};
+  });
+  var portal = {x: 1765, y: pathY(1765), open: 0, lit: [0, 0, 0, 0, 0]};
+  var P = {x: 150, y: pathY(150), vx: 0, vy: 0, dir: 1, walk: 0};
+  var keys = {}, mode = "walk", pick = 0, cur = null, t = 0, last = 0, raf = 0, alive = true, finished = false, fade = 0;
+  var grass = [];
+  for(var i = 0; i < 800; i++){
+    var gx = rnd() * W, gy = 330 + rnd() * 700;
+    if(Math.abs(gy - pathY(gx)) < 46) continue;
+    grass.push({x: gx, y: gy, h: 8 + rnd() * 16, ph: rnd() * 6.28, c: 24 + Math.floor(rnd() * 12)});
+  }
+  grass.sort(function(a, b){ return a.y - b.y; });
+  var bushes = [];
+  for(var j = 0; j < 26; j++){ var bx = rnd() * W, by = rnd() < .5 ? 360 + rnd() * 60 : 900 + rnd() * 30; bushes.push({x: bx, y: by, r: 28 + rnd() * 46}); }
+  var flies = [];
+  for(var k = 0; k < 46; k++) flies.push({x: rnd() * W, y: 330 + rnd() * 720, ph: rnd() * 6.28, sp: .3 + rnd() * .6, o: rnd() < .25});
+  var stones = [];
+  for(var q = 40; q < 1720; q += 34) stones.push({x: q + rnd() * 10, y: pathY(q) + (rnd() - .5) * 30, r: 5 + rnd() * 6});
+
+  function score(){
+    var done = lanterns.filter(function(l){ return l.ans !== null; }), good = done.filter(function(l){ return l.ans === l.t.ok; }).length;
+    scoreEl.innerHTML = "<b>" + good + " / " + done.length + "</b>răspunsuri corecte ale sălii";
+    return done.length;
+  }
+  score();
+
+  function nearest(){
+    var best = null, bd = 170;
+    lanterns.forEach(function(l){ var d = Math.hypot(P.x - l.x, P.y - (l.y - l.side * 30)); if(d < bd){ bd = d; best = l; } });
+    return best;
+  }
+  function wrap(text, maxW){
+    var ws = text.split(" "), lines = [], line = "";
+    ws.forEach(function(w){ var tst = line ? line + " " + w : w; if(cx.measureText(tst).width > maxW && line){ lines.push(line); line = w; } else line = tst; });
+    lines.push(line); return lines;
+  }
+  function rr(x, y, w, h, r){ cx.beginPath(); cx.moveTo(x + r, y); cx.arcTo(x + w, y, x + w, y + h, r); cx.arcTo(x + w, y + h, x, y + h, r); cx.arcTo(x, y + h, x, y, r); cx.arcTo(x, y, x + w, y, r); cx.closePath(); }
+
+  function update(dt){
+    t += dt;
+    if(mode === "walk" && !finished){
+      var ax = (keys.ArrowRight ? 1 : 0) - (keys.ArrowLeft ? 1 : 0), ay = (keys.ArrowDown ? 1 : 0) - (keys.ArrowUp ? 1 : 0);
+      var n = Math.hypot(ax, ay) || 1, sp = 330;
+      P.vx += ((ax / n) * sp - P.vx) * Math.min(1, dt * 10);
+      P.vy += ((ay / n) * sp - P.vy) * Math.min(1, dt * 10);
+    } else { P.vx *= .8; P.vy *= .8; }
+    P.x = Math.max(60, Math.min(W - 60, P.x + P.vx * dt));
+    P.y = Math.max(400, Math.min(1000, P.y + P.vy * dt));
+    if(Math.abs(P.vx) > 8) P.dir = P.vx > 0 ? 1 : -1;
+    var spd = Math.hypot(P.vx, P.vy); P.walk += spd * dt * .045;
+    cur = nearest();
+    lanterns.forEach(function(l){ l.glow += ((l.state === 1 ? 1 : l.state === 2 ? .25 : 0) - l.glow) * Math.min(1, dt * 3); });
+    var answered = lanterns.filter(function(l){ return l.ans !== null; }).length;
+    for(var i = 0; i < 5; i++){ var target = answered >= Math.ceil((i + 1) * 8 / 5) ? 1 : 0; portal.lit[i] += (target - portal.lit[i]) * Math.min(1, dt * 3); }
+    portal.open += ((answered === 8 ? 1 : 0) - portal.open) * Math.min(1, dt * 2);
+    if(answered === 8 && !finished && Math.hypot(P.x - portal.x, P.y - portal.y) < 80){ finished = true; }
+    if(finished){ fade = Math.min(1, fade + dt * 1.6); if(fade >= 1 && alive){ alive = false; onDone(); } }
+  }
+
+  function draw(){
+    cx.fillStyle = "#0B0B0B"; cx.fillRect(0, 0, W, H);
+    /* lumină caldă difuză */
+    var g0 = cx.createRadialGradient(P.x, P.y, 10, P.x, P.y, 520);
+    g0.addColorStop(0, "rgba(255,106,31,0.05)"); g0.addColorStop(1, "rgba(255,106,31,0)");
+    cx.fillStyle = g0; cx.fillRect(0, 0, W, H);
+    /* tufișuri */
+    bushes.forEach(function(b){ cx.fillStyle = "#0f0f0e"; cx.beginPath(); cx.arc(b.x, b.y, b.r, 0, 6.283); cx.fill(); });
+    /* poteca */
+    cx.lineCap = "round"; cx.lineJoin = "round";
+    cx.strokeStyle = "#151413"; cx.lineWidth = 92; cx.beginPath();
+    for(var x = 0; x <= 1780; x += 20){ var y = pathY(x); x ? cx.lineTo(x, y) : cx.moveTo(x, y); } cx.stroke();
+    stones.forEach(function(s){ cx.fillStyle = "#1d1c1a"; cx.beginPath(); cx.ellipse(s.x, s.y, s.r * 1.4, s.r, 0, 0, 6.283); cx.fill(); });
+    /* iarba */
+    cx.lineWidth = 1.6;
+    grass.forEach(function(b){
+      var sw = Math.sin(t * 1.3 + b.ph + b.x * .004) * 5;
+      var near = Math.hypot(b.x - P.x, b.y - P.y) < 50 ? (b.x < P.x ? -6 : 6) : 0;
+      var c = b.c; cx.strokeStyle = "rgb(" + c + "," + (c - 1) + "," + (c - 3) + ")";
+      cx.beginPath(); cx.moveTo(b.x, b.y); cx.quadraticCurveTo(b.x + sw * .4, b.y - b.h * .6, b.x + sw + near, b.y - b.h); cx.stroke();
+    });
+    /* poarta: cercul cu 5 segmente */
+    var pr = 78, pw = 22;
+    for(var i = 0; i < 5; i++){
+      var a0 = (-90 + i * 72 + 4) * Math.PI / 180, a1 = (-90 + (i + 1) * 72 - 4) * Math.PI / 180, m = (a0 + a1) / 2, off = (1 - portal.open) * 0 + portal.open * 14;
+      cx.strokeStyle = portal.lit[i] > .5 ? "rgba(255,106,31," + (.4 + .6 * portal.lit[i]) + ")" : "#2c2b29";
+      cx.lineWidth = pw; cx.lineCap = "butt";
+      cx.beginPath(); cx.arc(portal.x + Math.cos(m) * off, portal.y - 40 + Math.sin(m) * off, pr, a0, a1); cx.stroke();
+    }
+    if(portal.open > .05){
+      var pg = cx.createRadialGradient(portal.x, portal.y - 40, 5, portal.x, portal.y - 40, 160);
+      pg.addColorStop(0, "rgba(255,106,31," + .35 * portal.open + ")"); pg.addColorStop(1, "rgba(255,106,31,0)");
+      cx.fillStyle = pg; cx.fillRect(portal.x - 170, portal.y - 210, 340, 340);
+    }
+    /* felinare + personaj, sortate pe y */
+    var items = lanterns.map(function(l){ return {y: l.y, f: function(){ lantern(l); }}; });
+    items.push({y: P.y, f: hero});
+    items.sort(function(a, b){ return a.y - b.y; }).forEach(function(it){ it.f(); });
+    /* licurici */
+    flies.forEach(function(f){
+      var fx = f.x + Math.sin(t * f.sp + f.ph) * 30, fy = f.y + Math.cos(t * f.sp * .8 + f.ph) * 20, a = .25 + .35 * (Math.sin(t * 2 + f.ph) * .5 + .5);
+      cx.fillStyle = f.o ? "rgba(255,106,31," + a + ")" : "rgba(242,239,234," + a * .7 + ")";
+      cx.beginPath(); cx.arc(fx, fy, f.o ? 2.4 : 1.8, 0, 6.283); cx.fill();
+    });
+    /* bula de alegere / verdict */
+    if(cur){ bubble(cur); }
+    if(lanterns.every(function(l){ return l.ans !== null; }) && !finished){
+      cx.font = "500 20px Inter"; cx.fillStyle = "rgba(242,239,234," + (.5 + .3 * Math.sin(t * 3)) + ")"; cx.textAlign = "center";
+      cx.fillText("poarta s-a deschis", portal.x, portal.y + 80);
+    }
+    if(fade > 0){ cx.fillStyle = "rgba(255,106,31," + fade + ")"; cx.fillRect(0, 0, W, H); }
+  }
+  function lantern(l){
+    var x = l.x, y = l.y;
+    cx.fillStyle = "rgba(0,0,0,.5)"; cx.beginPath(); cx.ellipse(x, y + 4, 30, 9, 0, 0, 6.283); cx.fill();
+    if(l.glow > .02){
+      var g = cx.createRadialGradient(x, y - 70, 4, x, y - 70, 150);
+      g.addColorStop(0, "rgba(255,106,31," + .45 * l.glow + ")"); g.addColorStop(1, "rgba(255,106,31,0)");
+      cx.fillStyle = g; cx.fillRect(x - 160, y - 230, 320, 320);
+    }
+    cx.fillStyle = "#2f2d2a"; cx.fillRect(x - 7, y - 50, 14, 50);
+    cx.fillStyle = "#3a3836"; rr(x - 22, y - 92, 44, 44, 6); cx.fill();
+    cx.fillStyle = l.state === 1 ? "#FF6A1F" : l.state === 2 ? "#5a3a2a" : "#161514"; cx.fillRect(x - 12, y - 82, 24, 24);
+    cx.fillStyle = "#3a3836"; cx.beginPath(); cx.moveTo(x - 30, y - 92); cx.lineTo(x, y - 112); cx.lineTo(x + 30, y - 92); cx.closePath(); cx.fill();
+    cx.font = "600 21px Inter"; cx.textAlign = "center";
+    var tw = cx.measureText(l.t.w).width + 24, sy = l.side > 0 ? y + 22 : y + 22;
+    cx.fillStyle = "#1a1917"; rr(x - tw / 2, sy, tw, 34, 4); cx.fill();
+    cx.fillStyle = l.ans === null ? "#F2EFEA" : (l.t.ok ? "#F2EFEA" : "rgba(242,239,234,.45)"); cx.fillText(l.t.w, x, sy + 24);
+    if(l.ans !== null && !l.t.ok){ cx.strokeStyle = "#FF6A1F"; cx.lineWidth = 3; var w2 = cx.measureText(l.t.w).width; cx.beginPath(); cx.moveTo(x - w2 / 2 - 4, sy + 17); cx.lineTo(x + w2 / 2 + 4, sy + 17); cx.stroke(); }
+  }
+  function hero(){
+    cx.save(); cx.translate(P.x, P.y); cx.scale(1.35, 1.35); cx.translate(-P.x, -P.y);
+    heroDraw(); cx.restore();
+  }
+  function heroDraw(){
+    var x = P.x, y = P.y, moving = Math.hypot(P.vx, P.vy) > 20, bob = moving ? Math.abs(Math.sin(P.walk * 3)) * 5 : Math.sin(t * 2) * 1.2;
+    cx.fillStyle = "rgba(0,0,0,.55)"; cx.beginPath(); cx.ellipse(x, y + 2, 20, 7, 0, 0, 6.283); cx.fill();
+    var leg = moving ? Math.sin(P.walk * 3) * 5 : 0;
+    cx.strokeStyle = "#cfcac2"; cx.lineWidth = 5; cx.lineCap = "round";
+    cx.beginPath(); cx.moveTo(x - 6, y - 14); cx.lineTo(x - 6 + leg, y - 1); cx.moveTo(x + 6, y - 14); cx.lineTo(x + 6 - leg, y - 1); cx.stroke();
+    var by = y - 16 - bob;
+    cx.fillStyle = "#F2EFEA"; rr(x - 15, by - 30, 30, 32, 11); cx.fill();
+    /* fular portocaliu, flutură în spate */
+    cx.fillStyle = "#FF6A1F"; cx.fillRect(x - 15, by - 31, 30, 7);
+    var fl = Math.sin(t * 6 + P.walk * 2) * 4;
+    cx.beginPath(); cx.moveTo(x - P.dir * 12, by - 30); cx.quadraticCurveTo(x - P.dir * 26, by - 26 + fl, x - P.dir * 34, by - 18 + fl); cx.lineTo(x - P.dir * 30, by - 14 + fl); cx.quadraticCurveTo(x - P.dir * 22, by - 22, x - P.dir * 10, by - 24); cx.closePath(); cx.fill();
+    cx.fillStyle = "#F2EFEA"; cx.beginPath(); cx.arc(x, by - 46, 15, 0, 6.283); cx.fill();
+    cx.fillStyle = "#0B0B0B"; cx.beginPath(); cx.arc(x + P.dir * 6, by - 48, 2.2, 0, 6.283); cx.arc(x + P.dir * 12, by - 48, 2.2, 0, 6.283); cx.fill();
+  }
+  function bubble(l){
+    var bx = Math.min(W - 260, Math.max(260, l.x)), w = 440, h = 170;
+    var byTop = l.side < 0 ? l.y + 70 : l.y - 140 - (l.ans === null ? h : 150);
+    if(l.ans === null){
+      cx.fillStyle = "rgba(18,18,18,.96)"; rr(bx - w / 2, byTop, w, h, 10); cx.fill();
+      cx.strokeStyle = "rgba(242,239,234,.16)"; cx.lineWidth = 1.5; cx.stroke();
+      cx.textAlign = "center"; cx.fillStyle = "#F2EFEA"; cx.font = "850 46px Archivo"; cx.fillText(l.t.w, bx, byTop + 60);
+      var opts = ["Caracter", "Altceva"];
+      if(mode === "pick"){
+        opts.forEach(function(o, i){
+          var ox = bx - 105 + i * 210, sel = pick === i;
+          cx.fillStyle = sel ? "#FF6A1F" : "transparent"; rr(ox - 90, byTop + 92, 180, 52, 6); cx.fill();
+          cx.strokeStyle = sel ? "#FF6A1F" : "rgba(242,239,234,.3)"; cx.lineWidth = 2; cx.stroke();
+          cx.fillStyle = sel ? "#0B0B0B" : "#F2EFEA"; cx.font = "600 24px Inter"; cx.fillText(o, ox, byTop + 126);
+        });
+      } else {
+        cx.fillStyle = "rgba(242,239,234,.55)"; cx.font = "500 22px Inter"; cx.fillText("Spațiu: sala decide", bx, byTop + 122);
+      }
+    } else {
+      var good = l.ans === l.t.ok;
+      cx.font = "400 22px Inter"; var lines = wrap(l.t.why, w - 60);
+      var hh = 96 + lines.length * 30;
+      cx.fillStyle = "rgba(18,18,18,.96)"; rr(bx - w / 2, byTop, w, hh, 10); cx.fill();
+      cx.strokeStyle = good ? "#FF6A1F" : "rgba(242,239,234,.25)"; cx.lineWidth = 2; cx.stroke();
+      cx.textAlign = "left"; cx.font = "600 15px Inter"; cx.fillStyle = "#FF6A1F";
+      cx.fillText((l.t.ok ? "CARACTER" : "CONTESTAT") + (good ? " · sala a nimerit" : " · sala a greșit"), bx - w / 2 + 30, byTop + 38);
+      cx.font = "850 34px Archivo"; cx.fillStyle = "#F2EFEA"; cx.fillText(l.t.w, bx - w / 2 + 30, byTop + 76);
+      cx.font = "400 22px Inter"; cx.fillStyle = "rgba(242,239,234,.75)";
+      lines.forEach(function(ln, i){ cx.fillText(ln, bx - w / 2 + 30, byTop + 110 + i * 30); });
+    }
+  }
+  function frame(now){
+    if(!alive && fade >= 1){ draw(); return; }
+    var dt = Math.min(.05, (now - (last || now)) / 1000); last = now;
+    update(dt); draw();
+    raf = requestAnimationFrame(frame);
+  }
+  raf = requestAnimationFrame(frame);
+  return {
+    key: function(e, down){
+      var k = e.key;
+      if(["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].indexOf(k) >= 0){
+        e.preventDefault();
+        if(mode === "pick"){ if(down && (k === "ArrowLeft" || k === "ArrowRight")) pick = k === "ArrowLeft" ? 0 : 1; return true; }
+        keys[k] = down; return true;
+      }
+      if(!down) return true;
+      if(k === " " || k === "Enter"){
+        e.preventDefault();
+        if(mode === "walk"){ if(cur && cur.ans === null){ mode = "pick"; pick = 0; keys = {}; } }
+        else if(mode === "pick"){ cur.ans = pick === 0; cur.state = cur.ans === cur.t.ok ? 1 : 2; mode = "walk"; score(); }
+        return true;
+      }
+      if(k === "Escape"){ if(mode === "pick"){ mode = "walk"; return true; } return false; }
+      return false;
+    },
+    stop: function(){ alive = false; cancelAnimationFrame(raf); }
+  };
+}
+
 /* ---------- slide-urile ---------- */
 var S = [
 /* 1 */ {t: "Copertă", sec: 30, steps: [function(el, tl){
@@ -691,12 +940,20 @@ var S = [
   tl.from($$(".right .chip", el), {opacity: 0, x: -60, duration: .55, ease: E, stagger: .15}, .4);
 }], notes: "Autorii compară apoi scala lui Aaker cu felul în care psihologia definește personalitatea.\n\nÎn psihologie, modelul larg acceptat e cel al celor cinci mari factori, Big Five: deschidere, conștiinciozitate, extraversiune, agreabilitate și nevrotism. Articolul observă că doar trei din cele cinci dimensiuni ale lui Aaker corespund acestui model.\n\n(Click.) În psihologie, personalitatea exclude abilitățile cognitive, cum e inteligența. Iar psihologii au lucrat ani de zile ca să scoată abilitățile intelectuale și clasa socială din definițiile și scalele lor.\n\n(Click.) În scala lui Aaker intră exact aceste lucruri: competența și clasa socială."},
 
-/* 8 */ {t: "Test cu sala", sec: 40, dark: true, steps: [function(el, tl){
-  words(tl, $(".qq", el), .1, {st: .04});
-  tl.from($$(".cell", el), {opacity: 0, y: 30, duration: .5, ease: E, stagger: .09}, .6);
+/* 8 */ {t: "Joc: Satul trăsăturilor", sec: 100, steps: [function(el, tl){
+  rv(tl, $$(".gk, .gt, .gsub", el), .1, {st: .1});
+  rv(tl, $$(".gscore, .ghint", el), .5, {y: 10});
+  tl.from($(".gm", el), {opacity: 0, duration: .8}, 0);
+  if(!tl.paused()){ if(game) game.stop(); game = Game(el, function(){ if(cur === 7 && step === 0) next(); }); }
 }, function(el, tl){
-  tl.to($(".timer i", el), {scaleX: 1, duration: 30, ease: "none"});
-}], notes: "Acum un test scurt, de 30 de secunde. Toate cele opt cuvinte de pe ecran fac parte din scala lui Aaker. Întrebarea mea: care dintre ele descriu cu adevărat un caracter, așa cum ați descrie un om?\n\n(Click: pornește bara de 30 de secunde. Ia două-trei păreri. De obicei oamenii ezită la „de clasă superioară”, „occidental” și „de oraș mic”.)\n\nDacă ați ezitat la unele, ați simțit exact problema pe care o descriu autorii. Hai să vedem ce spune articolul."},
+  if(game){ game.stop(); game = null; }
+  el.classList.add("done"); counter.classList.add("dark");
+  tl.to($$(".gm, .ghud", el), {opacity: 0, duration: .4}, 0);
+  tl.fromTo(el, {backgroundColor: "#FF6A1F"}, {backgroundColor: "#FF6A1F", duration: .01}, 0);
+  tl.set($(".end", el), {opacity: 1}, 0);
+  tl.from($(".end .qq", el), {opacity: 0, y: 24, duration: .5, ease: E}, .2);
+  tl.from($$(".end .cell", el), {opacity: 0, y: 24, duration: .45, ease: E, stagger: .06}, .35);
+}], notes: "Acum vă dau controlul. (Săgețile mișcă personajul, Spațiu deschide alegerea.)\n\nÎn satul ăsta sunt opt felinare. Pe fiecare scrie o trăsătură din scala lui Aaker. La fiecare felinar, voi decideți: descrie un caracter, cum ați descrie un om, sau e altceva? Eu doar merg și apăs ce spune sala.\n\n(La fiecare felinar: întreabă sala, alege cu ← / → și confirmă cu Spațiu. Felinarul se aprinde portocaliu dacă sala a nimerit. Apare și motivul din articol, scurt.)\n\n(Cu cât aprinzi mai multe felinare, cu atât se colorează poarta-cerc din dreapta, cele cinci dimensiuni. După toate opt, mergi în poartă și jocul trece singur la recapitulare.)\n\n(Dacă jocul nu merge sau rămâi fără timp: Esc sau PageDown sare direct la recapitulare.)"},
 
 /* 9 */ {t: "Răspunsul articolului", sec: 80, seamless: true, steps: [function(el, tl){
   tl.fromTo(el, {backgroundColor: "#FF6A1F"}, {backgroundColor: "#0B0B0B", duration: .7, ease: EI}, 0);
@@ -879,6 +1136,7 @@ function reset(i){
   var el = slides[i];
   gsap.killTweensOf(el); gsap.set(el, {clearProps: "backgroundColor,opacity"});
   el.innerHTML = orig[i];
+  el.classList.remove("done");
   return el;
 }
 function runStep(i, k, instant){
@@ -895,6 +1153,7 @@ function renderFinal(i){
 function go(i, opt){
   opt = opt || {};
   if(i < 0 || i >= N) return;
+  if(game){ game.stop(); game = null; }
   if(tl){ tl.progress(1); tl.kill(); tl = null; }
   var prev = cur, prevEl = prev >= 0 ? slides[prev] : null;
   var el;
@@ -972,14 +1231,20 @@ function openPresenter(){
     '<footer><span id="pe">00:00</span><span id="pp"></span><span>Următorul: <span id="px"></span></span><span id="pk" style="margin-left:auto"></span><button id="pr">Resetează timpul</button></footer></body></html>');
   d.close();
   d.addEventListener("keydown", key);
+  d.addEventListener("keyup", function(e){ if(gameOn()) game.key(e, false); });
   d.getElementById("pr").onclick = function(){ t0 = Date.now(); };
   sync(); tick();
 }
 
 /* ---------- intrări ---------- */
 var typed = "", blackout = null;
+function gameOn(){ return game && cur === 7 && step === 0; }
 function key(e){
   var k = e.key;
+  if(gameOn()){
+    if(game.key(e, true)) return;
+    if(k === "Escape"){ next(); return; }
+  }
   if(k >= "0" && k <= "9"){ typed += k; return; }
   if(k === "Enter" && typed){ var n = parseInt(typed, 10); typed = ""; if(n >= 1 && n <= N) go(n - 1); return; }
   typed = "";
@@ -1006,7 +1271,8 @@ if(params.has("print")){
 } else {
   fit(); addEventListener("resize", fit);
   document.addEventListener("keydown", key);
-  stage.addEventListener("click", function(e){ if(e.clientX < innerWidth * .15) prev(); else next(); });
+  document.addEventListener("keyup", function(e){ if(gameOn()) game.key(e, false); });
+  stage.addEventListener("click", function(e){ if(gameOn()) return; if(e.clientX < innerWidth * .15) prev(); else next(); });
   document.addEventListener("contextmenu", function(e){ e.preventDefault(); prev(); });
   var idle; document.addEventListener("mousemove", function(){ document.body.classList.remove("hide-cursor"); clearTimeout(idle); idle = setTimeout(function(){ document.body.classList.add("hide-cursor"); }, 2000); });
   var h = parseInt((location.hash || "").slice(1), 10);

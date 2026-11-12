@@ -70,11 +70,18 @@ Legendă: ✅ verificat în articol · ⚠️ verificat, cu o observație
 | Scala lui Aaker conține competența și clasa socială | 150, 151 ✅ |
 | Motivul vizual (3 segmente albe, 2 gri) | ⚠️ articolul nu spune **care** 3 dimensiuni corespund, așa că segmentele nu au etichete |
 
-## Slide 8: Test cu sala
-| Afirmație | Pagina |
+## Slide 8: Jocul „Satul trăsăturilor” (test cu sala)
+Jocul e original: personaj, sat, felinare și poarta-cerc sunt create de la zero. Textele lui:
+| Afirmație din joc | Pagina |
 |---|---|
-| Onest, inteligent, imaginativ, îndrăzneț, vesel, de clasă superioară sunt itemi Aaker | 149, Tabelul 1 ✅ |
+| Onest, inteligent, imaginativ, îndrăzneț, vesel, de clasă superioară: itemi Aaker | 149, Tabelul 1 ✅ |
 | Occidental, de oraș mic: itemi ai scalei (replicarea Davies) | 152 ✅ |
+| „Inteligent: abilitate cognitivă. Psihologia o scoate din personalitate.” | 151 ✅ |
+| „Occidental: ține de valori și cultură, nu de caracter.” | 152 ✅ |
+| „De clasă superioară: descrie clientul tipic, nu brandul.” | 152 ✅ |
+| „De oraș mic: a scăzut fiabilitatea scalei în studiul britanic.” | 152 ✅ |
+| Onest, imaginativ, îndrăzneț, vesel: „Necontestat în articol.” | ✅ nu apar în critici (pp. 150–153) |
+| Ecranul final (portocaliu) e vechiul test, ca să treacă natural în slide-ul 9 | – |
 
 ## Slide 9: Răspunsul (4 din 8 contestate)
 | Afirmație | Pagina |
