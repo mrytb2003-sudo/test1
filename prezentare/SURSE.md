@@ -65,28 +65,26 @@ Legendă: ✅ verificat în articol · ⚠️ verificat, cu o observație
 |---|---|
 | Big Five: deschidere, conștiinciozitate, extraversiune, agreabilitate, nevrotism | 148 ✅ |
 | Personalitatea nu include aspectele cognitive (inteligență, abilități) | 147 ✅, 151 ✅ |
-| Psihologii au exclus abilitățile intelectuale, genul și clasa socială | 150 ✅ |
+| Psihologii au exclus abilitățile intelectuale și clasa socială | 150 ✅ (articolul mai menționează un al treilea element, pe care l-ai ales să nu-l discuți) |
 | Doar 3 din cele 5 dimensiuni Aaker corespund modelului din psihologie | 150 ✅ |
-| Scala lui Aaker conține competența, genul, clasa socială | 150, 151 ✅ |
+| Scala lui Aaker conține competența și clasa socială | 150, 151 ✅ |
 | Motivul vizual (3 segmente albe, 2 gri) | ⚠️ articolul nu spune **care** 3 dimensiuni corespund, așa că segmentele nu au etichete |
 
 ## Slide 8: Test cu sala
 | Afirmație | Pagina |
 |---|---|
-| Onest, inteligent, îndrăzneț, vesel, de clasă superioară sunt itemi Aaker | 149, Tabelul 1 ✅ |
-| Feminin este o fațetă a modelului Aaker | 152 ✅ |
+| Onest, inteligent, imaginativ, îndrăzneț, vesel, de clasă superioară sunt itemi Aaker | 149, Tabelul 1 ✅ |
 | Occidental, de oraș mic: itemi ai scalei (replicarea Davies) | 152 ✅ |
 
-## Slide 9: Răspunsul
+## Slide 9: Răspunsul (4 din 8 contestate)
 | Afirmație | Pagina |
 |---|---|
 | Inteligent: abilitate cognitivă, exclusă de psihologi | 151 ✅ |
-| Feminin: genul lipsește din scalele de personalitate; e adesea o judecată de valoare, legată de cultură | 152 ✅ |
 | De clasă superioară: clasa socială ține de imaginea utilizatorului tipic; amestecă emițătorul cu receptorul | 152 ✅ ⚠️ articolul vorbește de „items related to social class”, nu de cuvântul „upper-class” separat |
-| Occidental: „a typical illustration of ethnocentrism… Why are… ‘Asian’ or ‘Latin’ absent?” | 152 ✅ |
-| De oraș mic: împreună cu „Western” și „feminine”, a dus la fiabilitate scăzută în replicarea britanică Davies et al. | 152 ✅ |
+| Occidental: ține de sistemul de valori, fațeta culturală; „Why are the equivalent terms ‘Asian’ or ‘Latin’ absent?” | 152 ✅ |
+| De oraș mic: a contribuit la fiabilitatea scăzută în replicarea britanică Davies et al. | 152 ✅ |
 | Davies, Chun și Vinhas da Silva (2001) | 155, ref. 79 ✅ |
-| Onest, îndrăzneț, vesel nu sunt contestate | ✅ verificat: nu apar în nicio critică (pp. 150–153) |
+| Onest, imaginativ, îndrăzneț, vesel nu sunt contestate | ✅ verificat: nu apar în nicio critică (pp. 150–153) |
 
 ## Slide 10: Dovada empirică
 | Afirmație | Pagina |
@@ -123,7 +121,7 @@ Legendă: ✅ verificat în articol · ⚠️ verificat, cu o observație
 | 408 respondenți: personal, studenți, absolvenți (din 521 de răspunsuri) | 438, 442, 443 ✅ |
 | Majoritatea studenți sub 25 de ani (doar în note) | 443 ✅ |
 | Pornesc de la modelul cu 5 dimensiuni: sinceritate, entuziasm, competență, robustețe, rafinament | 442, Figura 1 ✅ |
-| **Rafinamentul eliminat**: itemii lui (aristocratic, atractiv, arătos, fermecător, **feminin**, blând) s-au încărcat pe mai multe dimensiuni sau sub 0,50 | 443–444 ✅ |
+| **Rafinamentul eliminat**: itemii lui (de ex. „aristocratic”, „fermecător”) s-au încărcat pe mai multe dimensiuni sau sub 0,50 | 443–444 ✅ |
 | **„European” eliminat** din robustețe (încărcare sub 0,50) | 444 ✅ |
 | Au rămas 4 dimensiuni: competență, entuziasm, sinceritate, robustețe | 443, Tabelul 2 ✅ |
 | Interes: competența β = 0,340; sinceritatea β = 0,282, semnificative | 446, Tabelul 5 ✅ |
@@ -133,7 +131,7 @@ Legendă: ✅ verificat în articol · ⚠️ verificat, cu o observație
 | (note) R² = 0,240 pentru interes, 0,068 pentru susținere | 446 ✅ |
 | (note) Apartenența („psychological ownership”) explică 34,5% din interes | 447, Tabelul 7 ✅ |
 | (note) Autorii avertizează asupra unui posibil eșantion deplasat | 442 ✅ |
-| Legătura dintre eliminarea lui „feminin” / „european” și critica lui Azoulay și Kapferer | **interpretarea ta**, spusă ca atare în note. Studiul nu citează articolul din 2003. |
+| Legătura dintre eliminarea lui „european” și critica lui Azoulay și Kapferer la „occidental” | **interpretarea ta**, spusă ca atare în note. Studiul nu citează articolul din 2003. |
 | „Cel mai puternic efect asupra interesului: competența” | 446 ✅ (0,340 > 0,282) |
 
 ## Slide 14: În practică
@@ -166,3 +164,7 @@ Concluzia ta, nu o afirmație factuală.
 - **Slide 4, sursa:** era „pp. 144–145”. Am pus „pp. 143–145, 154”, pentru că „prima scală (1997)” e la p. 143, iar anii 1958 / 1970 vin din bibliografie (p. 154).
 - **Slide 13:** în .pptx, competența (0,34) era „efectul cel mai puternic”, deși entuziasmul are 0,38. Am precizat „cel mai puternic efect **asupra interesului**”. Am adăugat eliminarea dimensiunii Rafinament (pp. 443–444).
 - **Slide 7, sursa:** am extins la pp. 147–151, pentru că „inteligența exclusă” e la p. 151.
+
+## La cererea ta
+- Subiectul **gen** a fost scos complet din prezentare: cuvântul „Feminin” a fost înlocuit în test cu „Imaginativ” (itemul Aaker *imaginative*, Tabelul 1, p. 149, necontestat). Testul are acum 4 trăsături contestate din 8.
+- Cuvântul **„etnocentrism”** a fost scos. „Occidental” e explicat prin ce spune articolul: ține de valori și cultură (p. 152).

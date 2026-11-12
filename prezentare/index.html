@@ -315,12 +315,12 @@ body.print #s8 .pn{color:rgba(11,11,11,.55)}
       <li><i>O</i>Deschidere</li><li><i>C</i>Conștiinciozitate</li><li><i>E</i>Extraversiune</li><li><i>A</i>Agreabilitate</li><li><i>N</i>Nevrotism</li>
     </ul>
     <div class="ex">Personalitatea exclude:</div>
-    <div class="chips"><span class="chip">abilitățile cognitive<i class="x"></i></span><span class="chip">genul<i class="x"></i></span><span class="chip">clasa socială<i class="x"></i></span></div>
+    <div class="chips"><span class="chip">abilitățile cognitive<i class="x"></i></span><span class="chip">clasa socială<i class="x"></i></span></div>
   </div>
   <div class="col right" style="left:1000px;width:760px">
     <span class="lab">În scala lui Aaker</span>
     <p class="rv">Apar exact lucrurile pe care psihologii le-au scos în decenii de cercetare:</p>
-    <div class="chips"><span class="chip o">competența</span><span class="chip o">genul</span><span class="chip o">clasa socială</span></div>
+    <div class="chips"><span class="chip o">competența</span><span class="chip o">clasa socială</span></div>
   </div>
   <div class="ringhost"></div>
   <div class="src">Sursa: Azoulay și Kapferer, 2003, pp. 147–151</div>
@@ -333,7 +333,7 @@ body.print #s8 .pn{color:rgba(11,11,11,.55)}
   <div class="tw">
     <div class="cell"><span class="H">Onest</span></div>
     <div class="cell"><span class="H">Inteligent</span></div>
-    <div class="cell"><span class="H">Feminin</span></div>
+    <div class="cell"><span class="H">Imaginativ</span></div>
     <div class="cell"><span class="H">Îndrăzneț</span></div>
     <div class="cell"><span class="H">Occidental</span></div>
     <div class="cell"><span class="H">Vesel</span></div>
@@ -350,14 +350,14 @@ body.print #s8 .pn{color:rgba(11,11,11,.55)}
   <div class="tw">
     <div class="cell" data-c="0"><span class="H">Onest</span></div>
     <div class="cell" data-c="1"><span class="H">Inteligent<i class="x"></i></span><div class="why"><b>Abilitate cognitivă.</b> Psihologia o scoate din personalitate.</div></div>
-    <div class="cell" data-c="2"><span class="H">Feminin<i class="x"></i></span><div class="why"><b>Gen.</b> Adesea o judecată de valoare, legată de cultură.</div></div>
+    <div class="cell" data-c="0"><span class="H">Imaginativ</span></div>
     <div class="cell" data-c="0"><span class="H">Îndrăzneț</span></div>
-    <div class="cell" data-c="4"><span class="H">Occidental<i class="x"></i></span><div class="why"><b>Etnocentrism.</b> De ce nu există „asiatic” sau „latin”?</div></div>
+    <div class="cell" data-c="3"><span class="H">Occidental<i class="x"></i></span><div class="why"><b>Ține de valori și cultură.</b> De ce nu și „asiatic” sau „latin”?</div></div>
     <div class="cell" data-c="0"><span class="H">Vesel</span></div>
-    <div class="cell" data-c="3"><span class="H">De clasă superioară<i class="x"></i></span><div class="why"><b>Descrie clientul tipic,</b> nu brandul.</div></div>
-    <div class="cell" data-c="5"><span class="H">De oraș mic<i class="x"></i></span><div class="why"><b>A scăzut fiabilitatea scalei</b> în studiul britanic al lui Davies și colab. (2001).</div></div>
+    <div class="cell" data-c="2"><span class="H">De clasă superioară<i class="x"></i></span><div class="why"><b>Descrie clientul tipic,</b> nu brandul.</div></div>
+    <div class="cell" data-c="4"><span class="H">De oraș mic<i class="x"></i></span><div class="why"><b>A scăzut fiabilitatea scalei</b> în studiul britanic al lui Davies și colab. (2001).</div></div>
   </div>
-  <p class="foot">Onest, îndrăzneț și vesel nu sunt contestate în articol.</p>
+  <p class="foot">Onest, imaginativ, îndrăzneț și vesel nu sunt contestate în articol.</p>
   <div class="src">Sursa: Azoulay și Kapferer, 2003, pp. 151–152; studiul britanic: Davies și colab., 2001, citat la p. 152</div>
 </section>
 
@@ -413,7 +413,7 @@ body.print #s8 .pn{color:rgba(11,11,11,.55)}
   <div class="ringhost"></div>
   <div class="lost">
     <span class="lab">Ce s-a rupt</span>
-    <p><b>Rafinamentul</b> a ieșit din analiză. Itemii lui, inclusiv <b>„feminin”</b>, nu s-au încadrat clar într-o dimensiune. A fost eliminat și <b>„european”</b>.</p>
+    <p><b>Rafinamentul</b> a ieșit din analiză. Itemii lui, ca <b>„aristocratic”</b> sau <b>„fermecător”</b>, nu s-au încadrat clar într-o dimensiune. A fost eliminat și <b>„european”</b>, rudă cu „occidental”.</p>
   </div>
   <div class="cols">
     <div><span class="lab">Interes</span><div class="what">urmăresc, citesc</div>
@@ -689,7 +689,7 @@ var S = [
 }, function(el, tl){
   rv(tl, $$(".right .lab, .right p", el), 0, {st: .1});
   tl.from($$(".right .chip", el), {opacity: 0, x: -60, duration: .55, ease: E, stagger: .15}, .4);
-}], notes: "Autorii compară apoi scala lui Aaker cu felul în care psihologia definește personalitatea.\n\nÎn psihologie, modelul larg acceptat e cel al celor cinci mari factori, Big Five: deschidere, conștiinciozitate, extraversiune, agreabilitate și nevrotism. Articolul observă că doar trei din cele cinci dimensiuni ale lui Aaker corespund acestui model.\n\n(Click.) În psihologie, personalitatea exclude abilitățile cognitive, cum e inteligența. Iar psihologii au lucrat ani de zile ca să scoată abilitățile intelectuale, genul și clasa socială din definițiile și scalele lor.\n\n(Click.) În scala lui Aaker intră exact aceste lucruri: competența, genul și clasa socială."},
+}], notes: "Autorii compară apoi scala lui Aaker cu felul în care psihologia definește personalitatea.\n\nÎn psihologie, modelul larg acceptat e cel al celor cinci mari factori, Big Five: deschidere, conștiinciozitate, extraversiune, agreabilitate și nevrotism. Articolul observă că doar trei din cele cinci dimensiuni ale lui Aaker corespund acestui model.\n\n(Click.) În psihologie, personalitatea exclude abilitățile cognitive, cum e inteligența. Iar psihologii au lucrat ani de zile ca să scoată abilitățile intelectuale și clasa socială din definițiile și scalele lor.\n\n(Click.) În scala lui Aaker intră exact aceste lucruri: competența și clasa socială."},
 
 /* 8 */ {t: "Test cu sala", sec: 40, dark: true, steps: [function(el, tl){
   words(tl, $(".qq", el), .1, {st: .04});
@@ -704,7 +704,7 @@ var S = [
   tl.from($(".qq", el), {opacity: 0, y: 20, duration: .5, ease: E}, .4);
   tl.from($(".k", el), {opacity: 0, duration: .4}, .4);
   el._n = 0;
-}].concat([1, 2, 3, 4, 5].map(function(c){
+}].concat([1, 2, 3, 4].map(function(c){
   return function(el, tl){
     var cell = $('.cell[data-c="' + c + '"]', el);
     tl.to($(".x", cell), {scaleX: 1, duration: .45, ease: E});
@@ -716,7 +716,7 @@ var S = [
 })).concat([function(el, tl){
   tl.to($$('.cell[data-c="0"] .H', el), {color: "#FF6A1F", duration: .5, stagger: .12});
   tl.to($(".foot", el), {opacity: 1, duration: .5}, .3);
-}]), notes: "Iată ce spune articolul. (Câte un click pentru fiecare cuvânt.)\n\n„Inteligent” ține de competență, iar competența e o abilitate. Psihologii exclud inteligența, ca abilitate cognitivă, din testele de personalitate.\n\n„Feminin” ține de gen, care lipsește din scalele de personalitate din psihologie, și de multe ori e o judecată de valoare, legată de cultură.\n\n„De clasă superioară”: articolul spune că elementele legate de clasa socială țin de imaginea utilizatorului tipic. Se amestecă emițătorul, adică brandul, cu receptorul, adică omul căruia brandul pare să-i vorbească.\n\n„Occidental” e, în cuvintele autorilor, un exemplu tipic de etnocentrism: de ce lipsesc „asiatic” sau „latin”?\n\n„De oraș mic”: într-o replicare a studiului lui Aaker în Marea Britanie, făcută de Davies și colegii lui, itemii „occidental”, „de oraș mic” și „feminin” au contribuit mult la scorurile scăzute de fiabilitate.\n\n(Click final.) Celelalte trei cuvinte, onest, îndrăzneț și vesel, nu sunt contestate în articol."},
+}]), notes: "Iată ce spune articolul. (Câte un click pentru fiecare cuvânt.)\n\n„Inteligent” ține de competență, iar competența e o abilitate. Psihologii exclud inteligența, ca abilitate cognitivă, din testele de personalitate.\n\n„De clasă superioară”: articolul spune că elementele legate de clasa socială țin de imaginea utilizatorului tipic. Se amestecă emițătorul, adică brandul, cu receptorul, adică omul căruia brandul pare să-i vorbească.\n\n„Occidental”: autorii spun că ține de sistemul de valori din spatele brandului, adică de cultura lui, nu de personalitate. Și întreabă: de ce lipsesc „asiatic” sau „latin”?\n\n„De oraș mic”: într-o replicare a studiului lui Aaker în Marea Britanie, făcută de Davies și colegii lui, itemii „occidental” și „de oraș mic”, printre alții, au contribuit mult la scorurile scăzute de fiabilitate.\n\n(Click final.) Celelalte patru cuvinte, onest, imaginativ, îndrăzneț și vesel, nu sunt contestate în articol."},
 
 /* 10 */ {t: "Dovada empirică", sec: 50, steps: [function(el, tl){
   words(tl, $(".t2", el), .1);
@@ -825,7 +825,7 @@ var S = [
 }, function(el, tl){
   tl.set($(".note", el), {opacity: 1});
   tl.from($(".note", el), {opacity: 0, x: -20, duration: .55, ease: E});
-}], notes: "Ca să văd dacă dezbaterea mai contează azi, am căutat un studiu recent, legat de domeniul în care lucrez, social media. Kara și Durulmuș au publicat în 2025 un studiu despre brandul Universității Bayburt din Turcia, cu 408 respondenți: personal, studenți și absolvenți, majoritatea studenți sub 25 de ani. Au pornit de la modelul cu cinci dimensiuni și au urmărit cum influențează personalitatea interacțiunea pe social media.\n\n(Click.) Primul lucru interesant apare înainte de rezultate. La analiza factorială, dimensiunea Rafinament nu a rezistat: itemii ei, printre care și „feminin”, s-au încărcat pe mai multe dimensiuni sau prea slab și au fost eliminați. A fost eliminat și „european”. Exact tipul de itemi pe care Azoulay și Kapferer îi contestau. Atenție: asta e legătura pe care o fac eu, autorii studiului nu o discută.\n\n(Click.) Rezultatele, pe cele patru dimensiuni rămase. Interesul, adică oamenii urmăresc și citesc, crește cu competența, β 0,34, și cu sinceritatea, β 0,28. Susținerea, adică oamenii creează ei înșiși conținut, crește cu entuziasmul, β 0,38. Robustețea nu are efect pe niciuna.\n\n(Click.) Partea interesantă: cel mai puternic efect asupra interesului îl are competența, exact dimensiunea despre care Azoulay și Kapferer spun că e abilitate, nu personalitate. O lectură posibilă, și e interpretarea mea: poate oamenii interacționează cu un brand pentru că pare bun la ce face, nu neapărat din cauza caracterului lui.\n\n(Dacă vine o întrebare: personalitatea explică 24% din interes și doar aproximativ 7% din susținere, R² 0,240 și 0,068. Sentimentul de apartenență, „psychological ownership”, explică singur 34,5% din interes. Autorii spun și că eșantionul poate fi deplasat și nu reprezintă toată universitatea, p. 442.)"},
+}], notes: "Ca să văd dacă dezbaterea mai contează azi, am căutat un studiu recent, legat de domeniul în care lucrez, social media. Kara și Durulmuș au publicat în 2025 un studiu despre brandul Universității Bayburt din Turcia, cu 408 respondenți: personal, studenți și absolvenți, majoritatea studenți sub 25 de ani. Au pornit de la modelul cu cinci dimensiuni și au urmărit cum influențează personalitatea interacțiunea pe social media.\n\n(Click.) Primul lucru interesant apare înainte de rezultate. La analiza factorială, dimensiunea Rafinament nu a rezistat: itemii ei, de exemplu „aristocratic” sau „fermecător”, s-au încărcat pe mai multe dimensiuni sau prea slab și au fost eliminați. A fost eliminat și „european”, rudă apropiată cu „occidental”, pe care Azoulay și Kapferer îl contestau. Atenție: asta e legătura pe care o fac eu, autorii studiului nu o discută.\n\n(Click.) Rezultatele, pe cele patru dimensiuni rămase. Interesul, adică oamenii urmăresc și citesc, crește cu competența, β 0,34, și cu sinceritatea, β 0,28. Susținerea, adică oamenii creează ei înșiși conținut, crește cu entuziasmul, β 0,38. Robustețea nu are efect pe niciuna.\n\n(Click.) Partea interesantă: cel mai puternic efect asupra interesului îl are competența, exact dimensiunea despre care Azoulay și Kapferer spun că e abilitate, nu personalitate. O lectură posibilă, și e interpretarea mea: poate oamenii interacționează cu un brand pentru că pare bun la ce face, nu neapărat din cauza caracterului lui.\n\n(Dacă vine o întrebare: personalitatea explică 24% din interes și doar aproximativ 7% din susținere, R² 0,240 și 0,068. Sentimentul de apartenență, „psychological ownership”, explică singur 34,5% din interes. Autorii spun și că eșantionul poate fi deplasat și nu reprezintă toată universitatea, p. 442.)"},
 
 /* 14 */ {t: "În practică", sec: 45, steps: [function(el, tl){
   words(tl, $(".t2", el), .1);
