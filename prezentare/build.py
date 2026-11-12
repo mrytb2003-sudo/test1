@@ -28,7 +28,8 @@ gsap = (V / "gsap.min.js").read_text(encoding="utf-8")
 assert "</script" not in gsap.lower()
 
 src = (ROOT / "src" / "deck.html").read_text(encoding="utf-8")
-out = src.replace("/*@FONTS@*/", fonts).replace("/*@GSAP@*/", gsap)
+game = (ROOT / "src" / "game.js").read_text(encoding="utf-8")
+out = src.replace("/*@FONTS@*/", fonts).replace("/*@GSAP@*/", gsap).replace("/*@GAME@*/", game)
 assert "/*@" not in out
 (ROOT / "index.html").write_text(out, encoding="utf-8")
 print(f"index.html: {len(out.encode()) / 1024:.0f} KB")

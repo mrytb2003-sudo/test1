@@ -22,11 +22,11 @@ Curs Brand Management, prof. Florin Nechita · 18.11.2026 · Alexandru Cosmin Ju
 
 Dacă browserul blochează fereastra prezentatorului, apasă „Permite pop-up-uri”, apoi din nou S.
 
-## Jocul (slide-ul 8)
-- **Săgețile** mișcă personajul, **Spațiu** deschide alegerea la felinarul apropiat, **← / →** alege „Caracter” sau „Altceva”, iar **Spațiu** confirmă.
-- După toate cele 8 felinare, mergi în poarta-cerc din dreapta și jocul trece singur la recapitulare.
-- **Esc** sau **PageDown** (butonul de clicker) sare peste joc oricând.
-- Cât timp jocul e activ, click-ul pe ecran nu schimbă slide-ul.
+## Animația de pe slide-ul 8
+- **→ / Spațiu / click / clicker**: personajul merge la felinarul următor și apare informația.
+- **←**: înapoi la felinarul anterior.
+- După al optulea felinar, încă un → îl duce în poarta-cerc, apoi trece singur la slide-ul 9.
+- **Esc** sare peste animație.
 
 ## Modificări
 Sursa e în `src/deck.html`. După orice modificare rulează:

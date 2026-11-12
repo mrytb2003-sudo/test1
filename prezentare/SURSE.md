@@ -70,28 +70,26 @@ Legendă: ✅ verificat în articol · ⚠️ verificat, cu o observație
 | Scala lui Aaker conține competența și clasa socială | 150, 151 ✅ |
 | Motivul vizual (3 segmente albe, 2 gri) | ⚠️ articolul nu spune **care** 3 dimensiuni corespund, așa că segmentele nu au etichete |
 
-## Slide 8: Jocul „Satul trăsăturilor” (test cu sala)
-Jocul e original: personaj, sat, felinare și poarta-cerc sunt create de la zero. Textele lui:
-| Afirmație din joc | Pagina |
+## Slide 8: „Drumul trăsăturilor” (animație, fără interacțiune cu sala)
+Personajul, satul, felinarele și poarta-cerc sunt create de la zero. La fiecare apăsare pe →, personajul merge la felinarul următor și apare informația.
+| Text din animație | Pagina |
 |---|---|
 | Onest, inteligent, imaginativ, îndrăzneț, vesel, de clasă superioară: itemi Aaker | 149, Tabelul 1 ✅ |
 | Occidental, de oraș mic: itemi ai scalei (replicarea Davies) | 152 ✅ |
-| „Inteligent: abilitate cognitivă. Psihologia o scoate din personalitate.” | 151 ✅ |
+| „Inteligent: e o abilitate, nu personalitate. Psihologia o scoate din personalitate.” | 151 ✅ |
 | „Occidental: ține de valori și cultură, nu de caracter.” | 152 ✅ |
 | „De clasă superioară: descrie clientul tipic, nu brandul.” | 152 ✅ |
-| „De oraș mic: a scăzut fiabilitatea scalei în studiul britanic.” | 152 ✅ |
-| Onest, imaginativ, îndrăzneț, vesel: „Necontestat în articol.” | ✅ nu apar în critici (pp. 150–153) |
-| Ecranul final (portocaliu) e vechiul test, ca să treacă natural în slide-ul 9 | – |
+| „De oraș mic: a scăzut fiabilitatea scalei într-un studiu britanic.” | 152 ✅ |
+| Onest, imaginativ, îndrăzneț, vesel: „Trăsătură de personalitate. Articolul nu o contestă.” | ✅ nu apar în critici (pp. 150–153) |
 
-## Slide 9: Răspunsul (4 din 8 contestate)
+## Slide 9: Pe scurt, 4 din 8 contestate
 | Afirmație | Pagina |
 |---|---|
-| Inteligent: abilitate cognitivă, exclusă de psihologi | 151 ✅ |
-| De clasă superioară: clasa socială ține de imaginea utilizatorului tipic; amestecă emițătorul cu receptorul | 152 ✅ ⚠️ articolul vorbește de „items related to social class”, nu de cuvântul „upper-class” separat |
-| Occidental: ține de sistemul de valori, fațeta culturală; „Why are the equivalent terms ‘Asian’ or ‘Latin’ absent?” | 152 ✅ |
-| De oraș mic: a contribuit la fiabilitatea scăzută în replicarea britanică Davies et al. | 152 ✅ |
-| Davies, Chun și Vinhas da Silva (2001) | 155, ref. 79 ✅ |
-| Onest, imaginativ, îndrăzneț, vesel nu sunt contestate | ✅ verificat: nu apar în nicio critică (pp. 150–153) |
+| Inteligent: abilitate cognitivă | 151 ✅ |
+| De clasă superioară: clasa socială ține de imaginea utilizatorului tipic | 152 ✅ |
+| Occidental: ține de valori și cultură; „Why are… ‘Asian’ or ‘Latin’ absent?” | 152 ✅ |
+| De oraș mic: fiabilitate scăzută în replicarea Davies et al. (2001) | 152, 155 ✅ |
+| Onest, imaginativ, îndrăzneț, vesel nu sunt contestate | ✅ |
 
 ## Slide 10: Dovada empirică
 | Afirmație | Pagina |
@@ -175,3 +173,6 @@ Concluzia ta, nu o afirmație factuală.
 ## La cererea ta
 - Subiectul **gen** a fost scos complet din prezentare: cuvântul „Feminin” a fost înlocuit în test cu „Imaginativ” (itemul Aaker *imaginative*, Tabelul 1, p. 149, necontestat). Testul are acum 4 trăsături contestate din 8.
 - Cuvântul **„etnocentrism”** a fost scos. „Occidental” e explicat prin ce spune articolul: ține de valori și cultură (p. 152).
+
+## Simplificare (ultima versiune)
+Textele de pe slide-uri și notele au fost scurtate, cu aceleași informații. Nicio afirmație nouă: toate de mai sus rămân valabile.
