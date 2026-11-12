@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Personalitatea brandurilor</title>
+<style>
+/*@FONTS@*/
+:root{
+  --bg:#0B0B0B; --bg2:#121212; --fg:#F2EFEA; --acc:#FF6A1F;
+  --mute:rgba(242,239,234,.62); --dim:rgba(242,239,234,.34); --faint:rgba(242,239,234,.14);
+  --ink:#0B0B0B;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#000;overflow:hidden;-webkit-font-smoothing:antialiased}
+body.hide-cursor,body.hide-cursor *{cursor:none!important}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;background:var(--bg);overflow:hidden;font-family:Inter,sans-serif;color:var(--fg)}
+.slide{position:absolute;inset:0;padding:0 160px;visibility:hidden;background:var(--bg)}
+.slide.on{visibility:visible}
+
+/* tipografie */
+.H{font-family:Archivo,sans-serif;font-weight:850;font-stretch:76%;letter-spacing:-.022em;line-height:.93;margin:0}
+.k{position:absolute;top:76px;left:160px;font:600 17px/1 Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.k b{color:var(--acc);font-weight:600}
+.t2{position:absolute;left:160px;top:150px;font-size:96px;max-width:1500px}
+.lead{font:400 32px/1.42 Inter;color:var(--mute);margin:0}
+.lab{font:600 16px/1 Inter;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.acc{color:var(--acc)}
+.src{position:absolute;left:160px;bottom:54px;font:400 15px/1.3 Inter;color:var(--dim);letter-spacing:.01em;max-width:1300px}
+.w{display:inline-block;white-space:pre}
+.num{font-variant-numeric:tabular-nums}
+
+#counter{position:absolute;right:160px;bottom:54px;font:500 15px/1 Inter;color:var(--dim);letter-spacing:.08em;font-variant-numeric:tabular-nums;z-index:5;transition:color .5s}
+#counter.dark{color:rgba(11,11,11,.55)}
+#bar{position:absolute;left:0;bottom:0;height:3px;background:var(--acc);z-index:5;transition:width .6s cubic-bezier(.2,.7,.2,1)}
+
+/* motiv cerc */
+svg.ring{position:absolute;overflow:visible}
+svg.ring path{fill:none;stroke-linecap:butt}
+svg.ring text{font:600 17px Inter;letter-spacing:.14em;text-transform:uppercase;fill:var(--mute)}
+
+/* 1 copertă */
+#s1 .t1{position:absolute;left:160px;top:260px;font-size:196px;z-index:2}
+#s1 .sub{position:absolute;left:160px;top:690px;font:400 46px/1.25 Inter;letter-spacing:-.01em;z-index:2}
+#s1 .meta{position:absolute;left:160px;bottom:96px;font:400 22px/1.6 Inter;color:var(--mute)}
+#s1 .meta b{color:var(--fg);font-weight:600}
+
+/* 2 întrebare */
+#s2 .q{position:absolute;left:160px;top:300px;font-size:176px;max-width:1500px}
+#s2 .lead{position:absolute;left:160px;top:760px}
+#s2 .blank{position:absolute;left:160px;top:860px;width:520px;height:6px;background:var(--acc);transform-origin:left}
+
+/* 3 articolul */
+#s3 .ttl{position:absolute;left:160px;top:150px;font-size:104px;max-width:1450px}
+#s3 .grid{position:absolute;left:160px;top:470px;display:grid;grid-template-columns:560px 440px 300px;column-gap:60px}
+#s3 .grid p{margin:14px 0 0;font:400 24px/1.45 Inter;color:var(--mute)}
+#s3 .grid p b{color:var(--fg);font-weight:600}
+#s3 .thesis{position:absolute;left:160px;top:770px;max-width:1350px;padding-left:34px;border-left:6px solid var(--acc);font:500 36px/1.35 Inter}
+
+/* 4 istoric */
+#s4 .line{position:absolute;left:160px;top:520px;width:1600px;height:2px;background:var(--faint);transform-origin:left}
+#s4 .ev{position:absolute;top:470px;width:360px}
+#s4 .ev .dot{width:22px;height:22px;border-radius:50%;background:var(--bg);border:3px solid var(--fg);margin:39px 0 34px}
+#s4 .ev .y{font-size:84px;position:absolute;top:-70px}
+#s4 .ev p{margin:0;font:400 25px/1.45 Inter;color:var(--mute);max-width:330px}
+#s4 .ev.last .dot{background:var(--acc);border-color:var(--acc)}
+#s4 .ev.last .y{color:var(--acc)}
+#s4 .concl{position:absolute;left:160px;top:800px;font-size:60px;max-width:1500px;font-stretch:84%;letter-spacing:-.012em}
+
+/* 5 Aaker */
+#s5 .def{position:absolute;left:160px;top:285px;max-width:1400px;font:400 30px/1.4 Inter;color:var(--mute)}
+#s5 .def q{color:var(--fg);quotes:"„" "”"}
+#s5 .stats{position:absolute;left:160px;top:380px;display:flex;gap:80px}
+#s5 .stats .n{font-size:110px;display:block}
+#s5 .stats .lab{display:block;margin-top:10px}
+#s5 .dims{position:absolute;left:160px;top:610px;width:960px;margin:0;padding:0;list-style:none}
+#s5 .dims li{display:grid;grid-template-columns:280px 1fr;align-items:baseline;padding:13px 0;border-top:1px solid var(--faint)}
+#s5 .dims li .H{font-size:44px;font-stretch:80%}
+#s5 .dims li span:last-child{font:400 22px/1.35 Inter;color:var(--mute)}
+
+/* 6 critica */
+#s6 .def{position:absolute;left:160px;top:190px;max-width:1000px;font-size:80px}
+#s6 .words{position:absolute;left:160px;top:470px;display:flex;gap:22px;flex-wrap:wrap;max-width:1000px}
+#s6 .words span{font:500 30px/1 Inter;padding:16px 24px;border:2px solid var(--fg)}
+#s6 .say{position:absolute;left:160px;top:580px;max-width:980px;font:400 32px/1.42 Inter;color:var(--mute)}
+#s6 .say b{color:var(--fg);font-weight:600}
+#s6 .quote{position:absolute;left:160px;top:760px;font-size:96px;color:var(--acc)}
+#s6 .gloss{position:absolute;left:160px;top:880px;font:400 25px/1.4 Inter;color:var(--mute)}
+
+/* 7 psihologie */
+#s7 .t2 .n{color:var(--acc)}
+#s7 .col{position:absolute;top:440px;width:700px}
+#s7 .col .lab{margin-bottom:26px;display:block}
+#s7 .big5{margin:0;padding:0;list-style:none}
+#s7 .big5 li{font:500 30px/1 Inter;padding:13px 0;border-top:1px solid var(--faint)}
+#s7 .big5 li i{font-style:normal;color:var(--dim);display:inline-block;width:46px}
+#s7 .ex{margin-top:36px;font:400 24px/1.4 Inter;color:var(--mute)}
+#s7 .chips{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px}
+#s7 .chip{position:relative;font:500 26px/1 Inter;padding:14px 20px;border:2px solid var(--fg);white-space:nowrap}
+#s7 .chip.o{border-color:var(--acc);color:var(--acc)}
+#s7 .chip .x{position:absolute;left:-6px;right:-6px;top:50%;height:3px;background:var(--fg);transform-origin:left}
+#s7 .right p{font:400 30px/1.42 Inter;color:var(--mute);margin:0 0 26px}
+#s7 .right p b{color:var(--fg);font-weight:600}
+
+/* 8 + 9 test */
+#s8{background:var(--acc)}
+#s8 .k,#s8 .k b{color:rgba(11,11,11,.7)}
+#s8 .src{color:rgba(11,11,11,.55)}
+.test .qq{position:absolute;left:160px;top:150px;font-size:76px;max-width:1500px}
+#s8 .qq,#s8 .tw .H{color:var(--ink)}
+.test .tw{position:absolute;left:160px;top:380px;width:1600px;display:grid;grid-template-columns:800px 800px;grid-auto-rows:150px}
+.test .cell{position:relative}
+.test .cell .H{font-size:74px;font-stretch:80%;position:relative;display:inline-block}
+.test .cell .x{position:absolute;left:-8px;right:-8px;top:52%;height:7px;background:var(--acc);transform-origin:left;transform:scaleX(0)}
+.test .cell .why{font:400 22px/1.35 Inter;color:var(--mute);margin-top:12px;max-width:700px;opacity:0}
+.test .cell .why b{color:var(--acc);font-weight:600}
+#s8 .timer{position:absolute;left:160px;top:986px;width:1600px;height:4px;background:rgba(11,11,11,.18)}
+#s8 .timer i{position:absolute;left:0;top:0;bottom:0;width:100%;background:var(--ink);transform-origin:left;transform:scaleX(0)}
+#s9 .foot{position:absolute;left:160px;top:270px;font:500 26px/1.3 Inter;color:var(--fg);opacity:0}
+
+/* 10 dovada */
+#s10 .stats{position:absolute;left:160px;top:400px;display:flex;gap:90px}
+#s10 .stats .n{font-size:120px;display:block}
+#s10 .stats .lab{display:block;margin-top:10px}
+#s10 .rows{position:absolute;left:160px;top:640px;width:1600px}
+#s10 .row{display:grid;grid-template-columns:420px 300px 1fr;align-items:center;height:96px;border-top:1px solid var(--faint)}
+#s10 .row .H{font-size:56px;font-stretch:80%}
+#s10 .row .ar{height:2px;background:var(--fg);position:relative;transform-origin:left;width:240px}
+#s10 .row .ar:after{content:"";position:absolute;right:-1px;top:-7px;border-left:14px solid var(--fg);border-top:8px solid transparent;border-bottom:8px solid transparent}
+#s10 .row .cat{font:500 36px/1.2 Inter;color:var(--acc)}
+#s10 .intro{position:absolute;left:1000px;top:420px;max-width:760px;font:400 28px/1.45 Inter;color:var(--mute)}
+
+/* 11 prisma */
+#s11 .t2{max-width:820px}
+#s11 .lead{position:absolute;left:160px;top:470px;max-width:700px}
+#s11 .mix{position:absolute;left:160px;top:720px;max-width:700px;font:400 26px/1.45 Inter;color:var(--mute)}
+#s11 .mix b{color:var(--fg);font-weight:600}
+#s11 svg.prism{position:absolute;left:960px;top:70px;width:860px;height:940px;overflow:visible}
+svg.prism polygon{fill:transparent;stroke:var(--fg);stroke-width:2}
+svg.prism polygon.p{fill:var(--acc);stroke:var(--acc)}
+svg.prism text{font:600 25px Inter;fill:var(--fg);text-anchor:middle}
+svg.prism text.pt{fill:var(--ink)}
+svg.prism text.ax{font:600 15px Inter;letter-spacing:.16em;fill:var(--dim);text-transform:uppercase}
+svg.prism .tag rect{fill:var(--bg);stroke:var(--acc);stroke-width:2}
+svg.prism .tag text{fill:var(--acc);font:500 21px Inter}
+
+/* 12 propunere */
+#s12 .defn{position:absolute;left:160px;top:170px;font-size:84px;max-width:1550px}
+#s12 .u{position:relative;display:inline-block}
+#s12 .u i{position:absolute;left:0;right:0;bottom:-4px;height:7px;background:var(--acc);transform-origin:left}
+#s12 .blk{position:absolute;top:640px;width:720px}
+#s12 .blk .lab{display:block;margin-bottom:22px}
+#s12 .blk p{margin:0;font:400 27px/1.45 Inter;color:var(--mute)}
+#s12 .ws{display:flex;gap:14px;margin-bottom:22px;flex-wrap:wrap}
+#s12 .ws span{font:600 30px/1 Inter;padding:14px 20px;border:2px solid var(--fg);color:var(--fg)}
+
+/* 13 Kara */
+#s13 .ctx{position:absolute;left:160px;top:292px;max-width:1500px;font:400 28px/1.45 Inter;color:var(--mute)}
+#s13 .cols{position:absolute;left:160px;top:420px;display:grid;grid-template-columns:680px 620px 300px;width:1600px}
+#s13 .cols .lab{display:block;margin-bottom:8px}
+#s13 .cols .what{font:400 22px/1.3 Inter;color:var(--dim);margin-bottom:34px}
+#s13 .b{margin-bottom:40px}
+#s13 .b .nm{font-size:50px;font-stretch:80%}
+#s13 .b .tr{position:relative;height:16px;margin:16px 0 10px;width:560px}
+#s13 .b .tr i{position:absolute;left:0;top:0;bottom:0;background:var(--acc);transform-origin:left}
+#s13 .b .v{font:500 24px/1 Inter;color:var(--mute)}
+#s13 .b .v b{color:var(--fg);font-weight:600}
+#s13 .b.off .nm{color:var(--dim)}
+#s13 .note{position:absolute;left:160px;top:850px;max-width:1500px;font:500 28px/1.4 Inter;padding-left:30px;border-left:6px solid var(--acc)}
+
+/* 14 practică */
+#s14 .qs{position:absolute;left:160px;top:400px;width:1600px}
+#s14 .qr{display:grid;grid-template-columns:110px 640px 1fr;align-items:baseline;padding:30px 0;border-top:1px solid var(--faint)}
+#s14 .qr .i{font-size:60px;color:var(--acc)}
+#s14 .qr .H{font-size:68px;font-stretch:80%}
+#s14 .qr p{margin:0;font:400 27px/1.42 Inter;color:var(--mute)}
+#s14 .qr p b{color:var(--fg);font-weight:600}
+#s14 .mine{position:absolute;left:160px;bottom:54px;font:400 15px Inter;color:var(--dim)}
+
+/* 15 limite */
+#s15 .ls{position:absolute;left:160px;top:420px;width:1600px;display:grid;grid-template-columns:repeat(3,1fr);column-gap:70px}
+#s15 .li{border-top:2px solid var(--fg);padding-top:28px}
+#s15 .li .i{font-size:72px;color:var(--acc)}
+#s15 .li h3{margin:26px 0 18px;font-size:44px;font-stretch:80%}
+#s15 .li p{margin:0;font:400 25px/1.45 Inter;color:var(--mute)}
+
+/* 16 final */
+#s16 .end{position:absolute;left:160px;top:250px;font-size:104px;max-width:1080px}
+#s16 .thx{position:absolute;left:160px;top:790px;font-size:64px;color:var(--acc)}
+#s16 .who{position:absolute;left:160px;top:880px;font:400 26px Inter;color:var(--mute)}
+
+/* 17 bibliografie */
+#s17 .bib{position:absolute;left:160px;top:300px;width:1500px;margin:0;padding:0;list-style:none}
+#s17 .bib li{font:400 23px/1.45 Inter;color:var(--mute);padding:15px 0 15px 0;border-top:1px solid var(--faint)}
+#s17 .bib li b{color:var(--fg);font-weight:600}
+#s17 .bib li em{font-style:italic}
+
+/* note pe ecran (rezervă, tasta N) */
+#notes{position:fixed;left:0;right:0;bottom:0;max-height:42vh;overflow:auto;background:rgba(18,18,18,.97);color:var(--fg);font:400 20px/1.5 Inter;padding:22px 32px;border-top:3px solid var(--acc);display:none;z-index:20}
+#notes.on{display:block}
+#notes .h{font:600 13px Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+#help{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#121212;color:var(--fg);border:1px solid var(--faint);padding:28px 34px;font:400 17px/1.8 Inter;display:none;z-index:30}
+#help.on{display:block}
+#help b{display:inline-block;min-width:110px;color:var(--acc);font-weight:600}
+
+/* PDF */
+@page{size:1920px 1080px;margin:0}
+body.print{overflow:visible;height:auto;background:var(--bg)}
+body.print #stage{position:static;transform:none!important;width:1920px;height:auto;background:none;overflow:visible}
+body.print .slide{position:relative;width:1920px;height:1080px;visibility:visible;break-after:page;overflow:hidden}
+body.print #counter,body.print #bar{display:none}
+body.print .pn{position:absolute;right:160px;bottom:54px;font:500 15px/1 Inter;color:var(--dim);letter-spacing:.08em}
+body.print #s8 .pn{color:rgba(11,11,11,.55)}
+</style>
+</head>
+<body>
+<div id="stage">
+
+<!-- 1 -->
+<section class="slide" id="s1">
+  <div class="k">Brand Management · Prezentare individuală</div>
+  <div class="ringhost"></div>
+  <h1 class="H t1 split">Personalitatea<br>brandurilor</h1>
+  <p class="sub split">Măsoară scalele ceea ce spun că măsoară<span class="acc">?</span></p>
+  <div class="meta rv"><b>Alexandru Cosmin Jugănaru</b><br>Pe baza articolului lui Azoulay și Kapferer (2003)<br>Prof. Florin Nechita · 18.11.2026</div>
+</section>
+
+<!-- 2 -->
+<section class="slide" id="s2">
+  <div class="k">O întrebare pentru voi</div>
+  <h2 class="H q split">Dacă Dacia ar fi <span class="acc">om</span>, cum ar fi?</h2>
+  <p class="lead rv">Spuneți primul cuvânt care vă vine în minte.</p>
+  <div class="blank"></div>
+</section>
+
+<!-- 3 -->
+<section class="slide" id="s3">
+  <div class="k"><b>01</b> · Articolul</div>
+  <h2 class="H ttl split">Do brand personality scales <span class="acc">really</span> measure brand personality?</h2>
+  <div class="grid">
+    <div class="rv"><span class="lab">Autori</span>
+      <p><b>Audrey Azoulay</b>, doctorand, HEC Paris</p>
+      <p><b>Jean-Noël Kapferer</b>, profesor de marketing, HEC Paris, autorul cărții „Strategic Brand Management”</p></div>
+    <div class="rv"><span class="lab">Publicat în</span>
+      <p><b>Journal of Brand Management</b><br>vol. 11, nr. 2, pp. 143–155<br>noiembrie 2003</p></div>
+    <div class="rv"><span class="lab">Tip</span>
+      <p>articol teoretic, critic</p></div>
+  </div>
+  <div class="thesis">Scalele de personalitate a brandului nu măsoară doar personalitatea. Amestecă mai multe fațete ale identității brandului.</div>
+  <div class="src">Sursa: Azoulay și Kapferer, 2003, p. 143</div>
+</section>
+
+<!-- 4 -->
+<section class="slide" id="s4">
+  <div class="k"><b>02</b> · De unde vine conceptul</div>
+  <h2 class="H t2 split">Practicienii l-au folosit înaintea cercetătorilor</h2>
+  <div class="line"></div>
+  <div class="ev" style="left:160px"><div class="H y">1958</div><div class="dot"></div><p>Martineau vorbește de „personalitatea” unui magazin</p></div>
+  <div class="ev" style="left:570px"><div class="H y">1970</div><div class="dot"></div><p>King: oamenii își aleg brandurile cum își aleg prietenii</p></div>
+  <div class="ev" style="left:980px"><div class="H y">Anii ’70</div><div class="dot"></div><p>Strategiile de publicitate includ rubrica „personalitatea brandului”</p></div>
+  <div class="ev last" style="left:1390px"><div class="H y">1997</div><div class="dot"></div><p>Jennifer Aaker construiește prima scală de măsurare</p></div>
+  <h3 class="H concl split">La început, „personalitatea brandului” însemna tot ce <span class="acc">nu ținea de produs</span>.</h3>
+  <div class="src">Sursa: Azoulay și Kapferer, 2003, pp. 143–145, 154</div>
+</section>
+
+<!-- 5 -->
+<section class="slide" id="s5">
+  <div class="k"><b>03</b> · Modelul contestat</div>
+  <h2 class="H t2 split">Scala lui Aaker: cinci dimensiuni</h2>
+  <p class="def rv">Definiție: <q>ansamblul caracteristicilor umane asociate unui brand</q></p>
+  <div class="stats">
+    <div><span class="H n num" data-to="114">0</span><span class="lab">trăsături testate</span></div>
+    <div><span class="H n num" data-to="37">0</span><span class="lab">branduri</span></div>
+  </div>
+  <ul class="dims">
+    <li><span class="H">Sinceritate</span><span>cu picioarele pe pământ, onest, sănătos, vesel</span></li>
+    <li><span class="H">Entuziasm</span><span>îndrăzneț, plin de viață, imaginativ, la zi</span></li>
+    <li><span class="H">Competență</span><span>de încredere, inteligent, de succes</span></li>
+    <li><span class="H">Rafinament</span><span>de clasă superioară, fermecător</span></li>
+    <li><span class="H">Robustețe</span><span>amator de aer liber, dur</span></li>
+  </ul>
+  <div class="ringhost"></div>
+  <div class="src">Sursa: Aaker, 1997, prezentat de Azoulay și Kapferer, 2003, Tabelul 1, p. 149; p. 150</div>
+</section>
+
+<!-- 6 -->
+<section class="slide" id="s6">
+  <div class="k"><b>04</b> · Critica principală</div>
+  <h2 class="H def split">„ansamblul caracteristicilor <span class="acc">umane</span> asociate unui brand”</h2>
+  <div class="words"><span>valori</span><span>aspect fizic</span><span>imaginea clientului tipic</span></div>
+  <p class="say">Sunt și ele „caracteristici umane”. <b>Definiția lui Aaker le înghite pe toate.</b></p>
+  <div class="H quote split">„an all-encompassing pot pourri”</div>
+  <p class="gloss rv">un amestec care cuprinde orice: așa descriu autorii folosirea termenului în branding</p>
+  <div class="ringhost"></div>
+  <div class="src">Sursa: Azoulay și Kapferer, 2003, pp. 146 și 150</div>
+</section>
+
+<!-- 7 -->
+<section class="slide" id="s7">
+  <div class="k"><b>05</b> · Comparația cu psihologia</div>
+  <h2 class="H t2">Doar <span class="n num">0</span> din cele 5 dimensiuni corespund psihologiei</h2>
+  <div class="col left" style="left:160px">
+    <span class="lab">În psihologie · Big Five</span>
+    <ul class="big5">
+      <li><i>O</i>Deschidere</li><li><i>C</i>Conștiinciozitate</li><li><i>E</i>Extraversiune</li><li><i>A</i>Agreabilitate</li><li><i>N</i>Nevrotism</li>
+    </ul>
+    <div class="ex">Personalitatea exclude:</div>
+    <div class="chips"><span class="chip">abilitățile cognitive<i class="x"></i></span><span class="chip">genul<i class="x"></i></span><span class="chip">clasa socială<i class="x"></i></span></div>
+  </div>
+  <div class="col right" style="left:1000px;width:760px">
+    <span class="lab">În scala lui Aaker</span>
+    <p class="rv">Apar exact lucrurile pe care psihologii le-au scos în decenii de cercetare:</p>
+    <div class="chips"><span class="chip o">competența</span><span class="chip o">genul</span><span class="chip o">clasa socială</span></div>
+  </div>
+  <div class="ringhost"></div>
+  <div class="src">Sursa: Azoulay și Kapferer, 2003, pp. 147–151</div>
+</section>
+
+<!-- 8 -->
+<section class="slide test" id="s8">
+  <div class="k">Test cu sala · <b>30 de secunde</b></div>
+  <h2 class="H qq split">Care dintre aceste trăsături din scala lui Aaker descriu un caracter?</h2>
+  <div class="tw">
+    <div class="cell"><span class="H">Onest</span></div>
+    <div class="cell"><span class="H">Inteligent</span></div>
+    <div class="cell"><span class="H">Feminin</span></div>
+    <div class="cell"><span class="H">Îndrăzneț</span></div>
+    <div class="cell"><span class="H">Occidental</span></div>
+    <div class="cell"><span class="H">Vesel</span></div>
+    <div class="cell"><span class="H">De clasă superioară</span></div>
+    <div class="cell"><span class="H">De oraș mic</span></div>
+  </div>
+  <div class="timer"><i></i></div>
+</section>
+
+<!-- 9 -->
+<section class="slide test" id="s9">
+  <div class="k"><b>06</b> · Răspunsul articolului</div>
+  <h2 class="H qq"><span class="n num acc">0</span> din 8 sunt contestate</h2>
+  <div class="tw">
+    <div class="cell" data-c="0"><span class="H">Onest</span></div>
+    <div class="cell" data-c="1"><span class="H">Inteligent<i class="x"></i></span><div class="why"><b>Abilitate cognitivă.</b> Psihologia o scoate din personalitate.</div></div>
+    <div class="cell" data-c="2"><span class="H">Feminin<i class="x"></i></span><div class="why"><b>Gen.</b> Adesea o judecată de valoare, legată de cultură.</div></div>
+    <div class="cell" data-c="0"><span class="H">Îndrăzneț</span></div>
+    <div class="cell" data-c="4"><span class="H">Occidental<i class="x"></i></span><div class="why"><b>Etnocentrism.</b> De ce nu există „asiatic” sau „latin”?</div></div>
+    <div class="cell" data-c="0"><span class="H">Vesel</span></div>
+    <div class="cell" data-c="3"><span class="H">De clasă superioară<i class="x"></i></span><div class="why"><b>Descrie clientul tipic,</b> nu brandul.</div></div>
+    <div class="cell" data-c="5"><span class="H">De oraș mic<i class="x"></i></span><div class="why"><b>A scăzut fiabilitatea scalei</b> în studiul britanic al lui Davies și colab. (2001).</div></div>
+  </div>
+  <p class="foot">Onest, îndrăzneț și vesel nu sunt contestate în articol.</p>
+  <div class="src">Sursa: Azoulay și Kapferer, 2003, pp. 151–152; studiul britanic: Davies și colab., 2001, citat la p. 152</div>
+</section>
+
+<!-- 10 -->
+<section class="slide" id="s10">
+  <div class="k"><b>07</b> · Dovada empirică</div>
+  <h2 class="H t2 split">Trăsăturile urmează categoria de produs, nu brandul</h2>
+  <div class="stats">
+    <div><span class="H n num" data-to="118">0</span><span class="lab">branduri</span></div>
+    <div><span class="H n num" data-to="12">0</span><span class="lab">piețe</span></div>
+  </div>
+  <p class="intro rv">Romaniuk și Ehrenberg au analizat cum sunt atribuite trăsăturile din scala lui Aaker. Cel mai des asociate:</p>
+  <div class="rows">
+    <div class="row"><span class="H">„energic”</span><span class="ar"></span><span class="cat">băuturile energizante</span></div>
+    <div class="row"><span class="H">„senzual”</span><span class="ar"></span><span class="cat">brandurile de înghețată</span></div>
+    <div class="row"><span class="H">„la zi”</span><span class="ar"></span><span class="cat">computerele și electronicele</span></div>
+  </div>
+  <div class="src">Sursa: Romaniuk și Ehrenberg, 2003, citați de Azoulay și Kapferer, 2003, p. 153</div>
+</section>
+
+<!-- 11 -->
+<section class="slide" id="s11">
+  <div class="k"><b>08</b> · Alternativa</div>
+  <h2 class="H t2 split">Prisma identității de brand</h2>
+  <p class="lead rv">Identitatea unui brand are șase fațete. <span style="color:var(--fg)">Personalitatea este doar una.</span></p>
+  <p class="mix">Scala lui Aaker le pune pe toate sub o singură etichetă. Articolul leagă, de exemplu, clasa socială de <b>imaginea clientului tipic</b> și „occidental” de <b>cultură, de valori</b>.</p>
+  <svg class="prism" viewBox="0 0 860 940"></svg>
+  <div class="src">Sursa: Kapferer (1992, 1998), Figura 1 din Azoulay și Kapferer, 2003, p. 146; pp. 145, 152</div>
+</section>
+
+<!-- 12 -->
+<section class="slide" id="s12">
+  <div class="k"><b>09</b> · Propunerea autorilor</div>
+  <h2 class="H defn">Personalitatea brandului = trăsăturile de personalitate umană care sunt <span class="u">aplicabile<i></i></span> și <span class="u">relevante<i></i></span> pentru branduri.</h2>
+  <div class="blk b1" style="left:160px">
+    <span class="lab">Aplicabil, dar nu relevant</span>
+    <div class="ws"><span>productiv</span><span>bine organizat</span><span>eficient</span></div>
+    <p>Se potrivesc unui brand, dar țin de organizare și strategie.</p>
+  </div>
+  <div class="blk b2" style="left:1000px">
+    <span class="lab">Regula din spate</span>
+    <p style="color:var(--fg);font-size:32px">Înainte să măsori ceva, spui clar ce intră în definiție și ce rămâne pe dinafară.</p>
+    <p style="margin-top:14px">Churchill, 1979</p>
+  </div>
+  <div class="src">Sursa: Azoulay și Kapferer, 2003, pp. 146, 151 și 153</div>
+</section>
+
+<!-- 13 -->
+<section class="slide" id="s13">
+  <div class="k"><b>10</b> · 22 de ani mai târziu, pe social media</div>
+  <h2 class="H t2 split">Ce trăsături aduc interacțiune online?</h2>
+  <p class="ctx rv">Kara și Durulmuș (2025): brandul Universității Bayburt (Turcia), 408 respondenți, dimensiunile lui Aaker.</p>
+  <div class="cols">
+    <div><span class="lab">Interes</span><div class="what">urmăresc, citesc</div>
+      <div class="b"><div class="H nm">Competența</div><div class="tr"><i data-b="0.34"></i></div><div class="v">β = <b class="num" data-to="0.34">0,00</b> · cel mai puternic efect asupra interesului</div></div>
+      <div class="b"><div class="H nm">Sinceritatea</div><div class="tr"><i data-b="0.28"></i></div><div class="v">β = <b class="num" data-to="0.28">0,00</b></div></div>
+    </div>
+    <div><span class="lab">Susținere</span><div class="what">creează conținut</div>
+      <div class="b"><div class="H nm">Entuziasmul</div><div class="tr"><i data-b="0.38"></i></div><div class="v">β = <b class="num" data-to="0.38">0,00</b></div></div>
+    </div>
+    <div><span class="lab">Fără efect</span><div class="what">nici pe interes, nici pe susținere</div>
+      <div class="b off"><div class="H nm">Robustețea</div></div>
+    </div>
+  </div>
+  <p class="note">Cel mai puternic efect asupra interesului îl are competența: exact dimensiunea pe care Azoulay și Kapferer o contestă.</p>
+  <div class="src">Sursa: Kara și Durulmuș, 2025, International Journal of Economics, Business and Politics, tabelele 5 și 6</div>
+</section>
+
+<!-- 14 -->
+<section class="slide" id="s14">
+  <div class="k"><b>11</b> · Ce iau din articol în practică</div>
+  <h2 class="H t2 split">Trei întrebări separate, nu una singură</h2>
+  <div class="qs">
+    <div class="qr"><span class="H i">1</span><span class="H">Cum este brandul?</span><p><b>Personalitatea:</b> tonul, felul în care vorbește în fiecare clip</p></div>
+    <div class="qr"><span class="H i">2</span><span class="H">Ce face bine?</span><p><b>Produsul:</b> competența, calitatea, dovezile</p></div>
+    <div class="qr"><span class="H i">3</span><span class="H">Cui vorbește?</span><p><b>Consumatorul reflectat:</b> cine apare în conținut, cu cine se identifică publicul</p></div>
+  </div>
+  <div class="mine">Aplicarea mea, pornind de la distincția făcută de autori (pp. 145, 152)</div>
+</section>
+
+<!-- 15 -->
+<section class="slide" id="s15">
+  <div class="k"><b>12</b> · O privire critică asupra articolului</div>
+  <h2 class="H t2 split">Și critica are limite</h2>
+  <div class="ls">
+    <div class="li"><div class="H i">1</div><h3 class="H">Nu propune o scală nouă</h3><p>Oferă o definiție mai strictă, dar nu și un instrument testat care să o măsoare.</p></div>
+    <div class="li"><div class="H i">2</div><h3 class="H">O singură dovadă empirică</h3><p>Exemplul cu categoriile de produs vine dintr-un raport de cercetare, nu dintr-un studiu publicat într-o revistă.</p></div>
+    <div class="li"><div class="H i">3</div><h3 class="H">Aaker a rămas standardul</h3><p>Dimensiunile lui sunt folosite și în studii din 2025, cum e cel de la Bayburt.</p></div>
+  </div>
+  <div class="src">Sursa: Azoulay și Kapferer, 2003, pp. 153, 155; Kara și Durulmuș, 2025</div>
+</section>
+
+<!-- 16 -->
+<section class="slide" id="s16">
+  <div class="k">Pe scurt</div>
+  <div class="ringhost"></div>
+  <h2 class="H end split">Un brand nu e un om. Dar dacă îl descriem ca pe un om, trebuie să știm <span class="acc">exact ce descriem</span>.</h2>
+  <div class="H thx rv">Mulțumesc!</div>
+  <div class="who rv">Alexandru Cosmin Jugănaru</div>
+</section>
+
+<!-- 17 -->
+<section class="slide" id="s17">
+  <div class="k">Bibliografie</div>
+  <h2 class="H t2">Surse</h2>
+  <ul class="bib">
+    <li><b>Azoulay, A. și Kapferer, J.-N. (2003).</b> Do brand personality scales really measure brand personality? <em>Journal of Brand Management</em>, 11(2), 143–155.</li>
+    <li>Aaker, J. L. (1997). Dimensions of brand personality. <em>Journal of Marketing Research</em>, 34(3), 347–356.</li>
+    <li>Kara, A. și Durulmuș, N. N. (2025). The effect of brand personality and psychological ownership of the brands on increasing social media engagements of brands. <em>International Journal of Economics, Business and Politics</em>, 9(1), 438–453.</li>
+    <li>Churchill, G. A., Jr. (1979). A paradigm for developing better measures of marketing constructs. <em>Journal of Marketing Research</em>, 16, 64–73.</li>
+    <li>Davies, G., Chun, R. și Vinhas da Silva, R. (2001). The personification metaphor as a measurement approach for corporate reputation. <em>Corporate Reputation Review</em>, 4(2), 113–127.</li>
+    <li>Romaniuk, J. și Ehrenberg, A. (2003). Do brands lack personality? Marketing Science Centre, raport de cercetare nr. 14, University of South Australia.</li>
+  </ul>
+</section>
+
+<div id="counter"></div>
+<div id="bar"></div>
+</div>
+
+<div id="notes"><div class="h">Note · tasta N</div><div class="b"></div></div>
+<div id="help">
+  <b>→ / Spațiu</b> pasul sau slide-ul următor<br>
+  <b>←</b> slide-ul anterior<br>
+  <b>Click</b> înainte (marginea stângă: înapoi)<br>
+  <b>S</b> mod prezentator (fereastră separată)<br>
+  <b>N</b> notele pe ecran<br>
+  <b>F</b> ecran complet<br>
+  <b>B</b> ecran negru<br>
+  <b>Home / End</b> primul / ultimul slide<br>
+  <b>cifre + Enter</b> sari la slide<br>
+  <b>?</b> ajutor
+</div>
+
+<script>/*@GSAP@*/</script>
+<script>
+(function(){
+"use strict";
+var E = "power3.out", EI = "power2.inOut";
+
+/* ---------- utilitare ---------- */
+function $(s, r){ return (r||document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+function fmt(v, dec){ return dec ? v.toFixed(dec).replace(".", ",") : String(Math.round(v)); }
+
+function split(el){
+  var walk = function(node){
+    Array.prototype.slice.call(node.childNodes).forEach(function(n){
+      if(n.nodeType === 3){
+        var parts = n.textContent.split(/(\s+)/), frag = document.createDocumentFragment();
+        parts.forEach(function(p){
+          if(!p) return;
+          if(/^\s+$/.test(p)){ frag.appendChild(document.createTextNode(" ")); return; }
+          var s = document.createElement("span"); s.className = "w"; s.textContent = p; frag.appendChild(s);
+        });
+        node.replaceChild(frag, n);
+      } else if(n.nodeType === 1 && n.tagName !== "BR"){ walk(n); }
+    });
+  };
+  walk(el);
+  return $$(".w", el);
+}
+function words(tl, el, pos, o){
+  o = o || {};
+  var ws = split(el);
+  tl.from(ws, {y: o.y || 40, opacity: 0, duration: o.d || .6, ease: E, stagger: o.st || .045}, pos);
+  return ws;
+}
+function rv(tl, els, pos, o){
+  o = o || {};
+  return tl.from(els, {y: o.y == null ? 24 : o.y, opacity: 0, duration: o.d || .55, ease: E, stagger: o.st || .08}, pos);
+}
+function count(tl, el, to, pos, o){
+  o = o || {};
+  var dec = o.dec || 0, obj = {v: o.from || 0};
+  el.textContent = fmt(obj.v, dec);
+  tl.to(obj, {v: to, duration: o.d || 1.1, ease: "power2.out", onUpdate: function(){ el.textContent = fmt(obj.v, dec); }}, pos);
+}
+
+/* ---------- motivul: cercul în 5 segmente ---------- */
+var NS = "http://www.w3.org/2000/svg";
+function mk(tag, attrs, parent){
+  var e = document.createElementNS(NS, tag);
+  for(var a in attrs) e.setAttribute(a, attrs[a]);
+  if(parent) parent.appendChild(e);
+  return e;
+}
+function ring(host, o){
+  var r = o.r, w = o.w, gap = o.gap == null ? 5 : o.gap, pad = o.pad || 60;
+  var size = 2 * (r + w / 2 + pad);
+  var svg = mk("svg", {"class": "ring", viewBox: "0 0 " + size + " " + size, width: size, height: size});
+  svg.style.left = (o.cx - size / 2) + "px"; svg.style.top = (o.cy - size / 2) + "px";
+  host.appendChild(svg);
+  var c = size / 2, segs = [];
+  for(var i = 0; i < 5; i++){
+    var a0 = (-90 + i * 72 + gap / 2) * Math.PI / 180, a1 = (-90 + (i + 1) * 72 - gap / 2) * Math.PI / 180;
+    var mid = (a0 + a1) / 2;
+    var g = mk("g", {}, svg);
+    var d = "M" + (c + r * Math.cos(a0)) + " " + (c + r * Math.sin(a0)) + " A" + r + " " + r + " 0 0 1 " + (c + r * Math.cos(a1)) + " " + (c + r * Math.sin(a1));
+    var p = mk("path", {d: d, "stroke-width": w}, g);
+    p.style.stroke = o.color || "var(--fg)";
+    var len = r * (a1 - a0);
+    var seg = {g: g, p: p, len: len, ux: Math.cos(mid), uy: Math.sin(mid)};
+    if(o.labels){
+      var lr = r + w / 2 + 34, tx = c + lr * Math.cos(mid), ty = c + lr * Math.sin(mid);
+      var t = mk("text", {x: tx, y: ty + 6, "text-anchor": Math.abs(Math.cos(mid)) < .3 ? "middle" : (Math.cos(mid) > 0 ? "start" : "end")}, g);
+      t.textContent = o.labels[i]; seg.t = t;
+    }
+    segs.push(seg);
+  }
+  return segs;
+}
+function draw(tl, segs, pos, o){
+  o = o || {};
+  segs.forEach(function(s, i){
+    tl.fromTo(s.p, {strokeDasharray: s.len + " " + s.len, strokeDashoffset: s.len},
+      {strokeDashoffset: 0, duration: o.d || .6, ease: EI}, (pos || 0) + i * (o.st == null ? .14 : o.st));
+  });
+}
+
+/* ---------- slide-urile ---------- */
+var S = [
+/* 1 */ {t: "Copertă", sec: 30, steps: [function(el, tl){
+  var segs = ring($(".ringhost", el), {cx: 1620, cy: 560, r: 320, w: 92, gap: 4});
+  segs.forEach(function(s){ s.p.style.stroke = "#222"; });
+  draw(tl, segs, 0, {d: .7, st: .12});
+  segs.forEach(function(s, i){ tl.to(s.p, {stroke: i === 1 ? "#FF6A1F" : "#3a3836", duration: .5}, .9 + i * .08); });
+  words(tl, $(".t1", el), .2, {y: 70, d: .7});
+  words(tl, $(".sub", el), .8, {st: .035});
+  rv(tl, $(".meta", el), 1.2);
+}], notes: "Bună ziua. Prezentarea mea e despre personalitatea brandurilor și are la bază un articol publicat în 2003 de Audrey Azoulay și Jean-Noël Kapferer. Întrebarea din titlu e chiar întrebarea articolului: când spunem că măsurăm personalitatea unui brand, chiar asta măsurăm?\n\nCercul are cinci segmente, ca cele cinci dimensiuni ale modelului lui Aaker, pe care se bazează majoritatea cercetărilor pe tema asta. Azi vedem dacă toate cinci descriu cu adevărat personalitate."},
+
+/* 2 */ {t: "Dacia ca om", sec: 50, steps: [function(el, tl){
+  words(tl, $(".q", el), .1, {y: 80, d: .7, st: .07});
+  rv(tl, $(".lead", el), .9);
+  tl.from($(".blank", el), {scaleX: 0, duration: .6, ease: E}, 1.1);
+  tl.to($(".blank", el), {opacity: .25, duration: .5, repeat: 5, yoyo: true, ease: "sine.inOut"}, 1.8);
+}], notes: "Încep cu o întrebare simplă: dacă Dacia ar fi om, cum ar fi? Spuneți primul cuvânt care vă vine în minte.\n\n(Așteaptă câteva răspunsuri și reține-le. Pot apărea: practic, simplu, de încredere, ieftin, românesc.)\n\nCe ați făcut acum e o tehnică folosită des în focus grupuri: oamenii sunt rugați să vorbească despre un brand ca despre o persoană. Articolul spune că oamenii răspund fără nicio dificultate la astfel de întrebări. Dar uitați-vă la cuvintele pe care le-ați spus: nu toate descriu un caracter. Unele descriu prețul, altele calitatea produsului, altele cine îl cumpără. Exact despre asta e articolul. Revenim la cuvintele voastre."},
+
+/* 3 */ {t: "Articolul", sec: 45, steps: [function(el, tl){
+  words(tl, $(".ttl", el), .1, {st: .04});
+  tl.from($(".ttl .acc", el), {color: "#F2EFEA", duration: .5}, 1.0);
+  rv(tl, $$(".grid > div", el), .7, {st: .12});
+}, function(el, tl){
+  tl.from($(".thesis", el), {opacity: 0, x: -20, duration: .55, ease: E});
+}], notes: "Articolul se numește „Do brand personality scales really measure brand personality?”, adică „Măsoară scalele de personalitate a brandului cu adevărat personalitatea brandului?”.\n\nAutorii: Audrey Azoulay, la momentul respectiv doctorand la HEC Paris, și Jean-Noël Kapferer, profesor de marketing la HEC și autorul cărții „Strategic Brand Management”. Articolul a apărut în Journal of Brand Management, în 2003. Nu e un studiu cu chestionare, ci un articol teoretic și critic.\n\n(Click: teza.) Teza lor, pe scurt: scalele folosite pentru a măsura personalitatea brandului nu măsoară doar personalitatea, ci amestecă mai multe fațete ale identității brandului. Personalitatea e doar una dintre ele."},
+
+/* 4 */ {t: "Istoric", sec: 60, steps: [function(el, tl){
+  words(tl, $(".t2", el), .1);
+  tl.from($(".line", el), {scaleX: 0, duration: 1.4, ease: EI}, .4);
+  $$(".ev", el).forEach(function(ev, i){
+    var p = .55 + i * .3;
+    tl.from($(".dot", ev), {scale: 0, duration: .4, ease: "back.out(2)"}, p);
+    tl.from($(".y", ev), {y: 30, opacity: 0, duration: .5, ease: E}, p);
+    tl.from($("p", ev), {y: 16, opacity: 0, duration: .5, ease: E}, p + .1);
+  });
+}, function(el, tl){
+  words(tl, $(".concl", el), 0, {st: .035, y: 30});
+}], notes: "Ca să înțelegem critica, trebuie să știm de unde vine conceptul. Autorii arată că practicienii din publicitate au folosit termenul „personalitatea brandului” înaintea cercetătorilor.\n\nÎn 1958, Martineau folosea cuvântul pentru ce face special un magazin dincolo de produse: caracterul lui. King, într-o lucrare din 1970 a agenției J. Walter Thompson, scria că oamenii își aleg brandurile la fel cum își aleg prietenii. Începând din anii ’70, toate strategiile de publicitate aveau o rubrică pentru personalitatea brandului. În 1997, Jennifer Aaker propune prima scală de măsurare.\n\n(Click.) Ideea importantă: termenul a fost folosit de la început destul de larg. Acoperea tot ce nu ținea de produs, de utilizare, de performanță sau de beneficii."},
+
+/* 5 */ {t: "Scala lui Aaker", sec: 60, steps: [function(el, tl){
+  var segs = ring($(".ringhost", el), {cx: 1500, cy: 680, r: 190, w: 64, gap: 4, labels: ["Sinceritate", "Entuziasm", "Competență", "Rafinament", "Robustețe"]});
+  el._segs = segs;
+  segs.forEach(function(s){ s.p.style.stroke = "#2a2928"; });
+  words(tl, $(".t2", el), .1);
+  rv(tl, $(".def", el), .5);
+  rv(tl, $$(".stats > div", el), .7, {st: .12});
+  count(tl, $$(".stats .n", el)[0], 114, .8, {d: 1.3});
+  count(tl, $$(".stats .n", el)[1], 37, .9, {d: 1.2});
+  draw(tl, segs, .6, {st: .1});
+  segs.forEach(function(s){ tl.from(s.t, {opacity: 0, duration: .4}, 1.2); });
+  tl.from($$(".dims li", el), {opacity: 0, duration: .01}, 0);
+}, function(el, tl){
+  var segs = el._segs, lis = $$(".dims li", el);
+  lis.forEach(function(li, i){
+    var p = i * .22;
+    tl.fromTo(li, {opacity: 0, x: -16}, {opacity: 1, x: 0, duration: .45, ease: E}, p);
+    tl.to(segs[i].p, {stroke: "#F2EFEA", duration: .35}, p);
+    tl.to(segs[i].t, {fill: "#F2EFEA", duration: .35}, p);
+  });
+}], notes: "Acesta e modelul pe care îl critică articolul. Jennifer Aaker definește personalitatea brandului ca „ansamblul caracteristicilor umane asociate unui brand”. A pornit de la 114 trăsături, pe 37 de branduri din categorii diferite, și a ajuns la cinci dimensiuni.\n\n(Click: dimensiunile apar pe rând.) Sinceritate, entuziasm, competență, rafinament și robustețe. Lângă fiecare vedeți fațetele din tabelul articolului.\n\nModelul a avut un succes enorm: autorii spun că majoritatea cercetărilor despre personalitatea brandului se bazează acum pe scala lui Aaker. Tocmai de aceea merită verificat: dacă definiția are o problemă, toate studiile construite pe ea moștenesc aceeași problemă."},
+
+/* 6 */ {t: "Critica principală", sec: 45, steps: [function(el, tl){
+  var segs = ring($(".ringhost", el), {cx: 1520, cy: 520, r: 200, w: 40, gap: 4});
+  el._segs = segs;
+  segs.forEach(function(s){ s.p.style.stroke = "#3a3836"; });
+  draw(tl, segs, 0, {d: .5, st: .06});
+  words(tl, $(".def", el), .15, {st: .05});
+}, function(el, tl){
+  var ws = $$(".words span", el), segs = el._segs;
+  tl.from(ws, {opacity: 0, y: 20, duration: .45, ease: E, stagger: .15});
+  rv(tl, $(".say", el), .6);
+  segs.forEach(function(s){ tl.to(s.p, {attr: {"stroke-width": 92}, stroke: "#F2EFEA", duration: .9, ease: EI}, 1.0); });
+}, function(el, tl){
+  var segs = el._segs;
+  words(tl, $(".quote", el), 0, {st: .06, y: 50});
+  rv(tl, $(".gloss", el), .6);
+  segs.forEach(function(s, i){ tl.to(s.p, {stroke: "#FF6A1F", duration: .5}, .2 + i * .05); });
+}], notes: "Aici e critica principală. Definiția lui Aaker spune „caracteristici umane asociate unui brand”.\n\n(Click.) Dar, spun autorii, și valorile interioare ale unui brand sunt caracteristici umane, și trăsăturile fizice, și imaginea utilizatorului tipic. Deci definiția e prea largă: intră în ea aproape orice. Cercul se umple cu lucruri care nu sunt personalitate.\n\n(Click.) Autorii folosesc o expresie foarte plastică: în branding, cuvântul „personalitate” a ajuns „an all-encompassing pot pourri”, un amestec care cuprinde orice. Problema e că toate cercetările de după Aaker au pornit de la aceeași definiție, deci au același defect la bază."},
+
+/* 7 */ {t: "Comparația cu psihologia", sec: 60, steps: [function(el, tl){
+  var segs = ring($(".ringhost", el), {cx: 1660, cy: 820, r: 80, w: 28, gap: 6});
+  el._segs = segs;
+  segs.forEach(function(s){ s.p.style.stroke = "#3a3836"; });
+  draw(tl, segs, .2, {d: .4, st: .06});
+  rv(tl, $(".t2", el), .1, {y: 40});
+  var n = $(".t2 .n", el), o = {v: 0};
+  tl.to(o, {v: 3, duration: .9, ease: "steps(3)", onUpdate: function(){ n.textContent = Math.round(o.v); }}, .6);
+  [0, 2, 4].forEach(function(k, i){ tl.to(segs[k].p, {stroke: "#F2EFEA", duration: .3}, .6 + (i + 1) * .3); });
+  rv(tl, $(".left .lab", el), .9);
+  rv(tl, $$(".big5 li", el), 1.0, {st: .07, y: 12});
+}, function(el, tl){
+  rv(tl, $$(".left .ex, .left .chips", el), 0, {st: .1});
+  tl.from($$(".left .x", el), {scaleX: 0, duration: .45, ease: E, stagger: .15}, .5);
+  tl.to($$(".left .chip", el), {opacity: .4, duration: .4}, 1.0);
+}, function(el, tl){
+  rv(tl, $$(".right .lab, .right p", el), 0, {st: .1});
+  tl.from($$(".right .chip", el), {opacity: 0, x: -60, duration: .55, ease: E, stagger: .15}, .4);
+}], notes: "Autorii compară apoi scala lui Aaker cu felul în care psihologia definește personalitatea.\n\nÎn psihologie, modelul larg acceptat e cel al celor cinci mari factori, Big Five: deschidere, conștiinciozitate, extraversiune, agreabilitate și nevrotism. Articolul observă că doar trei din cele cinci dimensiuni ale lui Aaker corespund acestui model.\n\n(Click.) În psihologie, personalitatea exclude abilitățile cognitive, cum e inteligența. Iar psihologii au lucrat ani de zile ca să scoată abilitățile intelectuale, genul și clasa socială din definițiile și scalele lor.\n\n(Click.) În scala lui Aaker intră exact aceste lucruri: competența, genul și clasa socială."},
+
+/* 8 */ {t: "Test cu sala", sec: 40, dark: true, steps: [function(el, tl){
+  words(tl, $(".qq", el), .1, {st: .04});
+  tl.from($$(".cell", el), {opacity: 0, y: 30, duration: .5, ease: E, stagger: .09}, .6);
+}, function(el, tl){
+  tl.to($(".timer i", el), {scaleX: 1, duration: 30, ease: "none"});
+}], notes: "Acum un test scurt, de 30 de secunde. Toate cele opt cuvinte de pe ecran fac parte din scala lui Aaker. Întrebarea mea: care dintre ele descriu cu adevărat un caracter, așa cum ați descrie un om?\n\n(Click: pornește bara de 30 de secunde. Ia două-trei păreri. De obicei oamenii ezită la „de clasă superioară”, „occidental” și „de oraș mic”.)\n\nDacă ați ezitat la unele, ați simțit exact problema pe care o descriu autorii. Hai să vedem ce spune articolul."},
+
+/* 9 */ {t: "Răspunsul articolului", sec: 80, seamless: true, steps: [function(el, tl){
+  tl.fromTo(el, {backgroundColor: "#FF6A1F"}, {backgroundColor: "#0B0B0B", duration: .7, ease: EI}, 0);
+  tl.fromTo($$(".cell .H", el), {color: "#0B0B0B"}, {color: "#F2EFEA", duration: .7, ease: EI}, 0);
+  tl.from($(".qq", el), {opacity: 0, y: 20, duration: .5, ease: E}, .4);
+  tl.from($(".k", el), {opacity: 0, duration: .4}, .4);
+  el._n = 0;
+}].concat([1, 2, 3, 4, 5].map(function(c){
+  return function(el, tl){
+    var cell = $('.cell[data-c="' + c + '"]', el);
+    tl.to($(".x", cell), {scaleX: 1, duration: .45, ease: E});
+    tl.to($(".H", cell), {color: "rgba(242,239,234,.4)", duration: .4}, .2);
+    tl.fromTo($(".why", cell), {opacity: 0, y: 8}, {opacity: 1, y: 0, duration: .4, ease: E}, .3);
+    var n = $(".qq .n", el);
+    count(tl, n, c, .15, {d: .01, from: c - 1});
+  };
+})).concat([function(el, tl){
+  tl.to($$('.cell[data-c="0"] .H', el), {color: "#FF6A1F", duration: .5, stagger: .12});
+  tl.to($(".foot", el), {opacity: 1, duration: .5}, .3);
+}]), notes: "Iată ce spune articolul. (Câte un click pentru fiecare cuvânt.)\n\n„Inteligent” ține de competență, iar competența e o abilitate. Psihologii exclud inteligența, ca abilitate cognitivă, din testele de personalitate.\n\n„Feminin” ține de gen, care lipsește din scalele de personalitate din psihologie, și de multe ori e o judecată de valoare, legată de cultură.\n\n„De clasă superioară”: articolul spune că elementele legate de clasa socială țin de imaginea utilizatorului tipic. Se amestecă emițătorul, adică brandul, cu receptorul, adică omul căruia brandul pare să-i vorbească.\n\n„Occidental” e, în cuvintele autorilor, un exemplu tipic de etnocentrism: de ce lipsesc „asiatic” sau „latin”?\n\n„De oraș mic”: într-o replicare a studiului lui Aaker în Marea Britanie, făcută de Davies și colegii lui, itemii „occidental”, „de oraș mic” și „feminin” au contribuit mult la scorurile scăzute de fiabilitate.\n\n(Click final.) Celelalte trei cuvinte, onest, îndrăzneț și vesel, nu sunt contestate în articol."},
+
+/* 10 */ {t: "Dovada empirică", sec: 50, steps: [function(el, tl){
+  words(tl, $(".t2", el), .1);
+  rv(tl, $$(".stats > div", el), .5, {st: .12});
+  count(tl, $$(".stats .n", el)[0], 118, .6, {d: 1.3});
+  count(tl, $$(".stats .n", el)[1], 12, .7, {d: 1.1});
+  rv(tl, $(".intro", el), 1.0);
+  tl.set($$(".row", el), {opacity: 0}, 0);
+}].concat([0, 1, 2].map(function(i){
+  return function(el, tl){
+    var row = $$(".row", el)[i];
+    tl.set(row, {opacity: 1});
+    tl.from($(".H", row), {opacity: 0, x: -20, duration: .4, ease: E});
+    tl.from($(".ar", row), {scaleX: 0, duration: .45, ease: E}, .2);
+    tl.from($(".cat", row), {opacity: 0, x: -14, duration: .4, ease: E}, .5);
+  };
+})), notes: "Autorii aduc și o dovadă empirică. Romaniuk și Ehrenberg au analizat atribuirea medie a trăsăturilor din scala lui Aaker în 12 piețe, pentru 118 branduri.\n\n(Click, trei rânduri.) Brandurile cele mai asociate cu „energic” sunt băuturile energizante. „Senzual” e asociat cel mai mult cu brandurile de înghețată. „La zi” e atribuit cel mai des computerelor și echipamentelor electronice.\n\nCu alte cuvinte, trăsătura descrie mai degrabă categoria de produs decât brandul. Concluzia autorilor: mulți dintre itemii scalei măsoară de fapt dimensiuni clasice ale performanței produsului.\n\nRevenind la exercițiul de la început: dacă ați spus despre Dacia „practică” sau „ieftină”, ați descris produsul și prețul, nu un caracter."},
+
+/* 11 */ {t: "Prisma lui Kapferer", sec: 65, steps: [function(el, tl){
+  var svg = $("svg.prism", el);
+  var cx = 430, L = 70, R = 790, T0 = 70, H = 800, a = H / 4, y1 = T0 + H / 3, y2 = T0 + 2 * H / 3, T = T0, B = T0 + H;
+  var P = function(arr){ return arr.map(function(p){ return p[0] + "," + p[1]; }).join(" "); };
+  var cells = [
+    {pts: [[cx, T], [cx, y1], [L, y1], [L, T + a]], lab: ["Fizic"], at: [cx - 170, y1 - 60]},
+    {pts: [[cx, T], [R, T + a], [R, y1], [cx, y1]], lab: ["Personalitate"], at: [cx + 170, y1 - 60], p: 1},
+    {pts: [[L, y1], [cx, y1], [cx, y2], [L, y2]], lab: ["Relație"], at: [cx - 180, (y1 + y2) / 2 + 9]},
+    {pts: [[cx, y1], [R, y1], [R, y2], [cx, y2]], lab: ["Cultură", "(valori)"], at: [cx + 180, (y1 + y2) / 2 - 6]},
+    {pts: [[L, y2], [cx, y2], [cx, B], [L, B - a]], lab: ["Consumator", "reflectat"], at: [cx - 175, y2 + 62]},
+    {pts: [[cx, y2], [R, y2], [R, B - a], [cx, B]], lab: ["Mentalizarea", "consumatorului"], at: [cx + 175, y2 + 62]}
+  ];
+  var gs = cells.map(function(c){
+    var g = mk("g", {}, svg);
+    mk("polygon", {points: P(c.pts), "class": c.p ? "p" : ""}, g);
+    c.lab.forEach(function(s, i){ var t = mk("text", {x: c.at[0], y: c.at[1] + i * 32, "class": c.p ? "pt" : ""}, g); t.textContent = s; });
+    return g;
+  });
+  var ax = [["Emițătorul · sursa construită", cx, T - 26, 0], ["Receptorul · destinatarul construit", cx, B + 44, 0], ["Externalizare", L - 26, (T + B) / 2, -90], ["Internalizare", R + 26, (T + B) / 2, 90]];
+  var axs = ax.map(function(x){ var t = mk("text", {x: x[1], y: x[2], "class": "ax", "text-anchor": "middle", transform: x[3] ? "rotate(" + x[3] + " " + x[1] + " " + x[2] + ")" : ""}, svg); t.textContent = x[0]; return t; });
+  el._gs = gs; el._cells = cells;
+  /* inelul de 5 se dizolvă în prisma de 6 */
+  var host = document.createElement("div"); el.appendChild(host);
+  var segs = ring(host, {cx: 960 + cx * 860 / 860, cy: 70 + (T + B) / 2, r: 120, w: 34, gap: 5});
+  segs.forEach(function(s){ s.p.style.stroke = "#3a3836"; });
+  draw(tl, segs, 0, {d: .35, st: .05});
+  segs.forEach(function(s, i){ tl.to(s.g, {x: s.ux * 260, y: s.uy * 260, opacity: 0, duration: .6, ease: "power2.in"}, .6 + i * .03); });
+  words(tl, $(".t2", el), .1);
+  gs.forEach(function(g, i){
+    var poly = $("polygon", g), len = 1800;
+    tl.fromTo(poly, {strokeDasharray: len, strokeDashoffset: len}, {strokeDashoffset: 0, duration: .55, ease: EI}, .9 + i * .2);
+    tl.from($$("text", g), {opacity: 0, y: 10, duration: .35, ease: E}, 1.1 + i * .2);
+  });
+  tl.from($("polygon.p", el), {fillOpacity: 0, duration: .5}, 2.3);
+  tl.from(axs, {opacity: 0, duration: .5, stagger: .08}, 2.2);
+  rv(tl, $(".lead", el), 2.4);
+}, function(el, tl){
+  var svg = $("svg.prism", el), cells = el._cells;
+  rv(tl, $(".mix", el), 0);
+  [["de clasă superioară", 4], ["occidental", 3]].forEach(function(t, i){
+    var c = cells[t[1]], g = mk("g", {"class": "tag"}, svg);
+    var w = t[0].length * 11.5 + 36, x = c.at[0] + (t[1] === 4 ? 30 : 0) - w / 2, y = c.at[1] + (t[1] === 4 ? 52 : 50);
+    mk("rect", {x: x, y: y, width: w, height: 44}, g);
+    var tx = mk("text", {x: x + w / 2, y: y + 29, "text-anchor": "middle"}, g); tx.textContent = t[0];
+    tl.from(g, {opacity: 0, x: -120, duration: .6, ease: E}, .4 + i * .3);
+  });
+}], notes: "Ce propun autorii în loc? Kapferer are propriul model, prisma identității de brand, care apare ca Figura 1 în articol.\n\nIdentitatea unui brand are șase fațete. Articolul le descrie așa: fațeta fizică, adică trăsăturile materiale distinctive; personalitatea; relația, adică stilul de comportament al brandului; cultura, adică valorile lui interioare; consumatorul reflectat, adică imaginea clientului. A șasea fațetă din figură este mentalizarea consumatorului. Sus e emițătorul, brandul, jos e receptorul, consumatorul.\n\nIdeea centrală: personalitatea în sens strict e doar una din aceste fațete.\n\n(Click.) Scala lui Aaker le pune pe toate sub o singură etichetă. Articolul spune explicit că „occidental” ține de sistemul de valori, adică de fațeta culturală. Iar clasa socială ține de imaginea utilizatorului tipic, adică de partea receptorului."},
+
+/* 12 */ {t: "Propunerea autorilor", sec: 50, steps: [function(el, tl){
+  words(tl, $(".defn", el), .1, {st: .035});
+  tl.from($$(".defn .u i", el), {scaleX: 0, duration: .5, ease: E, stagger: .25}, 1.3);
+}, function(el, tl){
+  rv(tl, $$(".b1 .lab, .b1 .ws span", el), 0, {st: .1});
+  rv(tl, $(".b1 p", el), .5);
+  tl.to($$(".b1 .ws span", el), {color: "rgba(242,239,234,.32)", borderColor: "rgba(242,239,234,.2)", duration: .6, stagger: .1}, 1.1);
+}, function(el, tl){
+  rv(tl, $$(".b2 > *", el), 0, {st: .12});
+}], notes: "Concluzia autorilor e o definiție mai strictă: personalitatea brandului este ansamblul trăsăturilor de personalitate umană care sunt atât aplicabile, cât și relevante pentru branduri.\n\n(Click.) Diferența dintre aplicabil și relevant e importantă. Autorii dau exemplul cuvintelor „productiv”, „bine organizat” și „eficient”. Pot fi spuse despre un brand, deci sunt aplicabile. Dar țin de domenii precum organizarea sau strategia, deci nu sunt relevante pentru personalitatea brandului.\n\n(Click.) În spate e o regulă clasică de metodologie, a lui Churchill, din 1979: înainte să construiești un instrument de măsurare, trebuie să spui clar ce intră în definiție și ce rămâne pe dinafară."},
+
+/* 13 */ {t: "Kara și Durulmuș (2025)", sec: 60, steps: [function(el, tl){
+  words(tl, $(".t2", el), .1);
+  rv(tl, $(".ctx", el), .5);
+  rv(tl, $$(".cols > div", el), .8, {st: .15});
+  $$(".b .tr i", el).forEach(function(b, i){
+    var v = parseFloat(b.getAttribute("data-b"));
+    b.style.width = Math.round(v * 1400) + "px";
+    tl.from(b, {scaleX: 0, duration: 1, ease: E}, 1.1 + i * .15);
+  });
+  $$(".v b.num", el).forEach(function(n, i){ count(tl, n, parseFloat(n.getAttribute("data-to")), 1.1 + i * .15, {d: 1, dec: 2}); });
+}, function(el, tl){
+  tl.from($(".note", el), {opacity: 0, x: -20, duration: .55, ease: E});
+}], notes: "Ca să văd dacă dezbaterea mai contează azi, am căutat un studiu recent, legat de domeniul în care lucrez, social media. Kara și Durulmuș au publicat în 2025 un studiu despre brandul Universității Bayburt din Turcia, cu 408 respondenți. Au măsurat personalitatea brandului cu dimensiunile lui Aaker și au urmărit cum influențează interacțiunea pe social media.\n\nAu împărțit interacțiunea în două: interesul, adică oamenii urmăresc și citesc conținutul brandului, și susținerea, adică ei înșiși creează conținut despre brand.\n\nRezultatele: interesul crește cel mai mult cu competența, apoi cu sinceritatea. Susținerea crește cu entuziasmul. Robustețea nu are niciun efect.\n\n(Click.) Partea interesantă: cel mai puternic efect asupra interesului îl are competența, adică exact dimensiunea despre care Azoulay și Kapferer spun că nu e personalitate, ci abilitate. O lectură posibilă, și e interpretarea mea, nu a autorilor: poate că oamenii interacționează cu un brand pentru că pare bun la ce face, nu neapărat din cauza caracterului lui."},
+
+/* 14 */ {t: "În practică", sec: 45, steps: [function(el, tl){
+  words(tl, $(".t2", el), .1);
+  tl.set($$(".qr", el), {opacity: 0}, 0);
+}].concat([0, 1, 2].map(function(i){
+  return function(el, tl){
+    var r = $$(".qr", el)[i];
+    tl.set(r, {opacity: 1});
+    tl.from($$(".i, .H", r), {opacity: 0, y: 24, duration: .45, ease: E, stagger: .08});
+    tl.from($("p", r), {opacity: 0, x: -14, duration: .45, ease: E}, .25);
+  };
+})), notes: "Lucrez în social media și fac conținut video pentru afaceri, așa că m-am întrebat ce pot lua concret din articolul ăsta.\n\nCând un client îmi spune „vreau ca brandul meu să pară profesionist și prietenos”, amestecă de fapt mai multe lucruri, exact cum face scala lui Aaker.\n\n(Click) Prima întrebare: cum este brandul? Asta e personalitatea, care se vede în tonul fiecărui clip.\n(Click) A doua: ce face bine? Asta e produsul, competența, care se arată prin dovezi, nu prin ton.\n(Click) A treia: cui vorbește? Asta e imaginea clientului, adică cine apare în conținut și cu cine se identifică publicul.\n\nDacă le separi, fiecare primește alt tip de conținut. E aplicarea mea, nu ceva scris în articol, dar pornește direct de la distincția pe care o fac autorii."},
+
+/* 15 */ {t: "Limitele articolului", sec: 45, steps: [function(el, tl){
+  words(tl, $(".t2", el), .1);
+  tl.set($$(".li", el), {opacity: 0}, 0);
+}].concat([0, 1, 2].map(function(i){
+  return function(el, tl){
+    var li = $$(".li", el)[i];
+    tl.set(li, {opacity: 1});
+    tl.from(li, {borderTopColor: "rgba(242,239,234,0)", duration: .4});
+    tl.from(li.children, {opacity: 0, y: 20, duration: .45, ease: E, stagger: .08}, 0);
+  };
+})), notes: "Ca să fiu corect cu articolul, are și el limite.\n\n(Click) Prima: autorii propun o definiție mai strictă, dar nu construiesc și nu testează o scală nouă. Ei spun că au analizat definiția și scalele existente înainte de a propune o metodologie nouă.\n\n(Click) A doua: dovada empirică principală, exemplul cu băuturile energizante și înghețata, vine dintr-un raport de cercetare al lui Romaniuk și Ehrenberg, nu dintr-un articol publicat într-o revistă.\n\n(Click) A treia: în practică, critica nu a înlocuit modelul lui Aaker. Studiul din 2025 pe care vi l-am arătat folosește tot dimensiunile lui. Deci articolul nu a închis discuția, dar a pus o întrebare la care cercetătorii încă trebuie să răspundă."},
+
+/* 16 */ {t: "Concluzie", sec: 30, steps: [function(el, tl){
+  var segs = ring($(".ringhost", el), {cx: 1530, cy: 520, r: 230, w: 70, gap: 4});
+  segs.forEach(function(s, i){ s.p.style.stroke = i === 1 ? "#FF6A1F" : "#3a3836"; });
+  segs.forEach(function(s, i){ tl.from(s.g, {x: s.ux * 180, y: s.uy * 180, opacity: 0, duration: .8, ease: E}, .1 + i * .06); });
+  words(tl, $(".end", el), .2, {st: .04});
+  rv(tl, $$(".thx, .who", el), 1.4, {st: .12});
+}], notes: "Ca să închei: metafora brandului ca om e utilă și oamenii o folosesc natural, cum ați făcut și voi la început cu Dacia.\n\nDar articolul ne arată că, atunci când o transformăm în instrument de măsurare, trebuie să știm exact ce măsurăm: caracterul brandului, calitatea produsului, valorile lui sau clientul căruia îi vorbește. Sunt lucruri diferite și merită tratate diferit.\n\nVă mulțumesc. Dacă aveți întrebări, vă ascult."},
+
+/* 17 */ {t: "Bibliografie", sec: 10, steps: [function(el, tl){
+  rv(tl, $(".t2", el), .1);
+  rv(tl, $$(".bib li", el), .3, {st: .07, y: 14});
+}], notes: "(Slide de rezervă, rămâne pe ecran la întrebări.)"}
+];
+
+/* ---------- motor ---------- */
+var stage = $("#stage"), slides = $$(".slide"), N = slides.length;
+var orig = slides.map(function(s){ return s.innerHTML; });
+var cur = -1, step = 0, tl = null, presenter = null, t0 = null;
+var counter = $("#counter"), bar = $("#bar");
+
+function fit(){
+  var s = Math.min(innerWidth / 1920, innerHeight / 1080);
+  stage.style.transform = "translate(-50%,-50%) scale(" + s + ")";
+}
+function reset(i){
+  var el = slides[i];
+  gsap.killTweensOf(el); gsap.set(el, {clearProps: "backgroundColor,opacity"});
+  el.innerHTML = orig[i];
+  return el;
+}
+function runStep(i, k, instant){
+  var el = slides[i], t = gsap.timeline({paused: !!instant});
+  S[i].steps[k](el, t);
+  if(instant){ t.progress(1); t.kill(); return null; }
+  return t;
+}
+function renderFinal(i){
+  var el = reset(i);
+  for(var k = 0; k < S[i].steps.length; k++) runStep(i, k, true);
+  return el;
+}
+function go(i, opt){
+  opt = opt || {};
+  if(i < 0 || i >= N) return;
+  if(tl){ tl.progress(1); tl.kill(); tl = null; }
+  var prev = cur, prevEl = prev >= 0 ? slides[prev] : null;
+  var el;
+  if(opt.final){ el = renderFinal(i); step = S[i].steps.length - 1; }
+  else { el = reset(i); step = 0; tl = runStep(i, 0); }
+  el.classList.add("on"); el.style.zIndex = 2;
+  if(prevEl && prevEl !== el){
+    prevEl.style.zIndex = 1;
+    var seamless = S[i].seamless && prev === i - 1;
+    if(seamless){ prevEl.classList.remove("on"); }
+    else {
+      gsap.fromTo(el, {opacity: 0}, {opacity: 1, duration: .45, ease: "power1.out"});
+      gsap.to(prevEl, {opacity: 0, duration: .35, ease: "power1.in", onComplete: function(){ prevEl.classList.remove("on"); gsap.set(prevEl, {opacity: 1}); }});
+    }
+  }
+  cur = i;
+  counter.textContent = String(i + 1).padStart(2, "0") + " / " + N;
+  counter.classList.toggle("dark", !!S[i].dark);
+  bar.style.width = ((i + 1) / N * 100) + "%";
+  if(!opt.nohash) try{ history.replaceState(null, "", "#" + (i + 1)); }catch(e){}
+  if(t0 === null && i > 0) t0 = Date.now();
+  sync();
+}
+function next(){
+  if(step < S[cur].steps.length - 1){
+    if(tl){ tl.progress(1); tl.kill(); }
+    step++; tl = runStep(cur, step); sync();
+  } else go(cur + 1);
+}
+function prev(){ if(cur > 0) go(cur - 1, {final: true}); else go(0); }
+
+/* ---------- note și prezentator ---------- */
+var notesEl = $("#notes");
+function fmtT(ms){ var s = Math.max(0, Math.floor(ms / 1000)); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
+function planUntil(i){ var s = 0; for(var k = 0; k <= i; k++) s += S[k].sec; return s * 1000; }
+function sync(){
+  var n = S[cur], txt = n.notes;
+  $(".b", notesEl).innerHTML = esc(txt).replace(/\n/g, "<br>");
+  $(".h", notesEl).textContent = "Note · " + (cur + 1) + " / " + N + " · pas " + (step + 1) + " / " + n.steps.length;
+  if(presenter && !presenter.closed){
+    var d = presenter.document;
+    d.getElementById("pc").textContent = String(cur + 1).padStart(2, "0") + " / " + N;
+    d.getElementById("pt").textContent = n.t;
+    d.getElementById("ps").textContent = "pas " + (step + 1) + " din " + n.steps.length + (step < n.steps.length - 1 ? " · urmează un click pe același slide" : "");
+    d.getElementById("pn").innerHTML = esc(txt).replace(/\n\n/g, "</p><p>").replace(/\n/g, "<br>").replace(/^/, "<p>") + "</p>";
+    d.getElementById("px").textContent = cur < N - 1 ? (cur + 2) + ". " + S[cur + 1].t : "Sfârșit";
+    d.getElementById("pp").textContent = "țintă până aici: " + fmtT(planUntil(cur)) + " din " + fmtT(planUntil(N - 1));
+  }
+}
+function esc(s){ return s.replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+function tick(){
+  if(presenter && !presenter.closed){
+    var d = presenter.document, el = Date.now() - (t0 || Date.now());
+    d.getElementById("pe").textContent = fmtT(el);
+    var diff = el - planUntil(cur);
+    var pe = d.getElementById("pe"); pe.style.color = diff > 30000 ? "#FF6A1F" : "#F2EFEA";
+    var now = new Date(); d.getElementById("pk").textContent = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
+  }
+}
+setInterval(tick, 500);
+function openPresenter(){
+  if(presenter && !presenter.closed){ presenter.focus(); return; }
+  presenter = window.open("", "prezentator", "width=1180,height=780");
+  if(!presenter){ notesEl.classList.add("on"); return; }
+  var d = presenter.document;
+  d.open();
+  d.write('<!doctype html><html lang="ro"><head><meta charset="utf-8"><title>Prezentator · Personalitatea brandurilor</title><style>' +
+    'body{margin:0;background:#0B0B0B;color:#F2EFEA;font-family:Inter,system-ui,sans-serif;display:grid;grid-template-rows:auto 1fr auto;height:100vh}' +
+    'header{display:flex;gap:28px;align-items:baseline;padding:22px 32px;border-bottom:1px solid rgba(242,239,234,.14)}' +
+    '#pc{font:800 40px Archivo,Inter,sans-serif;color:#FF6A1F;font-variant-numeric:tabular-nums}#pt{font:600 28px Inter,sans-serif}#ps{color:rgba(242,239,234,.55);font-size:16px;margin-left:auto}' +
+    'main{overflow:auto;padding:10px 32px 20px;font-size:25px;line-height:1.55}main p{margin:14px 0;max-width:1000px}' +
+    'footer{display:flex;gap:40px;align-items:baseline;padding:16px 32px;border-top:1px solid rgba(242,239,234,.14);color:rgba(242,239,234,.6);font-size:17px}' +
+    '#pe{font:700 44px Inter,sans-serif;font-variant-numeric:tabular-nums}#pk{font-size:22px;font-variant-numeric:tabular-nums}#px{color:#F2EFEA}button{background:none;border:1px solid rgba(242,239,234,.3);color:#F2EFEA;font:inherit;padding:6px 14px;cursor:pointer}' +
+    '</style></head><body><header><span id="pc"></span><span id="pt"></span><span id="ps"></span></header><main id="pn"></main>' +
+    '<footer><span id="pe">00:00</span><span id="pp"></span><span>Următorul: <span id="px"></span></span><span id="pk" style="margin-left:auto"></span><button id="pr">Resetează timpul</button></footer></body></html>');
+  d.close();
+  d.addEventListener("keydown", key);
+  d.getElementById("pr").onclick = function(){ t0 = Date.now(); };
+  sync(); tick();
+}
+
+/* ---------- intrări ---------- */
+var typed = "", blackout = null;
+function key(e){
+  var k = e.key;
+  if(k >= "0" && k <= "9"){ typed += k; return; }
+  if(k === "Enter" && typed){ var n = parseInt(typed, 10); typed = ""; if(n >= 1 && n <= N) go(n - 1); return; }
+  typed = "";
+  if(k === "ArrowRight" || k === " " || k === "PageDown" || k === "ArrowDown"){ e.preventDefault(); next(); }
+  else if(k === "ArrowLeft" || k === "PageUp" || k === "ArrowUp"){ e.preventDefault(); prev(); }
+  else if(k === "Home"){ go(0); }
+  else if(k === "End"){ go(N - 1, {final: true}); }
+  else if(k === "s" || k === "S"){ openPresenter(); }
+  else if(k === "n" || k === "N"){ notesEl.classList.toggle("on"); }
+  else if(k === "f" || k === "F"){ if(!document.fullscreenElement) document.documentElement.requestFullscreen().catch(function(){}); else document.exitFullscreen(); }
+  else if(k === "b" || k === "B" || k === "."){ blackout = blackout ? (blackout.remove(), null) : (function(){ var d = document.createElement("div"); d.style.cssText = "position:fixed;inset:0;background:#000;z-index:40"; document.body.appendChild(d); return d; })(); }
+  else if(k === "?" || k === "h" || k === "H"){ $("#help").classList.toggle("on"); }
+  else if(k === "Escape"){ $("#help").classList.remove("on"); notesEl.classList.remove("on"); }
+}
+
+var params = new URLSearchParams(location.search);
+if(params.has("print")){
+  document.body.classList.add("print");
+  slides.forEach(function(s, i){
+    renderFinal(i);
+    var pn = document.createElement("div"); pn.className = "pn"; pn.textContent = String(i + 1).padStart(2, "0") + " / " + N; s.appendChild(pn);
+  });
+  window.__ready = true;
+} else {
+  fit(); addEventListener("resize", fit);
+  document.addEventListener("keydown", key);
+  stage.addEventListener("click", function(e){ if(e.clientX < innerWidth * .15) prev(); else next(); });
+  document.addEventListener("contextmenu", function(e){ e.preventDefault(); prev(); });
+  var idle; document.addEventListener("mousemove", function(){ document.body.classList.remove("hide-cursor"); clearTimeout(idle); idle = setTimeout(function(){ document.body.classList.add("hide-cursor"); }, 2000); });
+  var h = parseInt((location.hash || "").slice(1), 10);
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(function(){
+    go(h >= 1 && h <= N ? h - 1 : 0, {final: h > 1, nohash: true});
+  });
+  window.__deck = {go: go, next: next, prev: prev, state: function(){ return {cur: cur, step: step}; }};
+}
+})();
+</script>
+</body>
+</html>
