@@ -3,7 +3,9 @@
 **Sursa principală:** Azoulay, A. și Kapferer, J.-N. (2003). *Do brand personality scales really measure brand personality?* Journal of Brand Management, 11(2), 143–155.
 Paginile de mai jos sunt **paginile revistei** (143–155), tipărite în colțul fiecărei pagini din PDF. Pagina 143 din revistă = pagina 1 din PDF, deci pagina din PDF = pagina din revistă − 142.
 
-Legendă: ✅ verificat în articol · ⚠️ verificat, cu o observație · ❌ **neverificat**, lipsește PDF-ul sursei
+**Sursa a doua:** Kara, A. și Nur Durulmuș, N. (2025). International Journal of Economics, Business and Politics, 9(1), 438–453. Paginile sunt ale revistei: pagina din PDF = pagina din revistă − 437.
+
+Legendă: ✅ verificat în articol · ⚠️ verificat, cu o observație
 
 ---
 
@@ -52,6 +54,7 @@ Legendă: ✅ verificat în articol · ⚠️ verificat, cu o observație · ❌
 ## Slide 6: Critica principală
 | Afirmație | Pagina |
 |---|---|
+| Formularea „Definiția lui Aaker le include pe toate” (înainte: „le înghite”, prea colocvial) | rezumă p. 146 |
 | Valorile, trăsăturile fizice și imaginea utilizatorului tipic sunt și ele „caracteristici umane” | 146 ✅ |
 | Definiția e prea largă („too wide”) | 150 ✅ |
 | Citatul „an all-encompassing pot pourri” | 150 ✅ |
@@ -88,6 +91,7 @@ Legendă: ✅ verificat în articol · ⚠️ verificat, cu o observație · ❌
 ## Slide 10: Dovada empirică
 | Afirmație | Pagina |
 |---|---|
+| Titlul „**Unele** trăsături descriu categoria de produs” (înainte: „Trăsăturile urmează…”, o generalizare prea largă din 3 exemple) | 153 ✅ |
 | Romaniuk și Ehrenberg: 12 piețe, 118 branduri | 153 ✅ |
 | energetic → energiser drinks; sensuous → ice cream; up to date → computers and electronic equipment | 153 ✅ |
 | Mulți itemi măsoară de fapt performanța produsului | 153 ✅ |
@@ -112,16 +116,25 @@ Legendă: ✅ verificat în articol · ⚠️ verificat, cu o observație · ❌
 | „productive”, „well-organised”, „efficient”: aplicabile, dar nu relevante (organizare, strategie) | 151 ✅ |
 | Regula lui Churchill (1979): delimitezi ce intră și ce nu intră în definiție | 146 ✅, 151, 153 |
 
-## Slide 13: Kara și Durulmuș (2025) ❌ NEVERIFICAT
-PDF-ul acestui articol **nu mi-a fost trimis**. Toate cifrele de mai jos sunt preluate din .pptx-ul tău și nu le-am putut verifica:
-| Afirmație | Status |
+## Slide 13: Kara și Durulmuș (2025) ✅ verificat integral
+| Afirmație | Pagina (revistă) |
 |---|---|
-| Universitatea Bayburt (Turcia), 408 respondenți | ❌ |
-| Interes: competența β = 0,34; sinceritatea β = 0,28 | ❌ |
-| Susținere: entuziasmul β = 0,38 | ❌ |
-| Robustețea nu are efect | ❌ |
-| Tabelele 5 și 6 | ❌ |
-| Legătura cu critica despre competență | interpretarea ta, bazată pe p. 151 |
+| Universitatea Bayburt, Turcia | 438, 442 ✅ |
+| 408 respondenți: personal, studenți, absolvenți (din 521 de răspunsuri) | 438, 442, 443 ✅ |
+| Majoritatea studenți sub 25 de ani (doar în note) | 443 ✅ |
+| Pornesc de la modelul cu 5 dimensiuni: sinceritate, entuziasm, competență, robustețe, rafinament | 442, Figura 1 ✅ |
+| **Rafinamentul eliminat**: itemii lui (aristocratic, atractiv, arătos, fermecător, **feminin**, blând) s-au încărcat pe mai multe dimensiuni sau sub 0,50 | 443–444 ✅ |
+| **„European” eliminat** din robustețe (încărcare sub 0,50) | 444 ✅ |
+| Au rămas 4 dimensiuni: competență, entuziasm, sinceritate, robustețe | 443, Tabelul 2 ✅ |
+| Interes: competența β = 0,340; sinceritatea β = 0,282, semnificative | 446, Tabelul 5 ✅ |
+| Susținere: entuziasmul β = 0,379, semnificativ | 446, Tabelul 6 ✅ |
+| Robustețea nu are efect nici pe interes (p = 0,991), nici pe susținere (p = 0,748) | 446, 449 ✅ |
+| Interes = urmăresc, citesc; susținere = publică, creează conținut | 445, Tabelul 3 ✅ |
+| (note) R² = 0,240 pentru interes, 0,068 pentru susținere | 446 ✅ |
+| (note) Apartenența („psychological ownership”) explică 34,5% din interes | 447, Tabelul 7 ✅ |
+| (note) Autorii avertizează asupra unui posibil eșantion deplasat | 442 ✅ |
+| Legătura dintre eliminarea lui „feminin” / „european” și critica lui Azoulay și Kapferer | **interpretarea ta**, spusă ca atare în note. Studiul nu citează articolul din 2003. |
+| „Cel mai puternic efect asupra interesului: competența” | 446 ✅ (0,340 > 0,282) |
 
 ## Slide 14: În practică
 Este aplicarea ta, marcată pe slide ca atare. Se sprijină pe distincția emițător / receptor și pe fațetele prismei (pp. 145, 152).
@@ -129,9 +142,10 @@ Este aplicarea ta, marcată pe slide ca atare. Se sprijină pe distincția emiț
 ## Slide 15: Limite
 | Afirmație | Pagina |
 |---|---|
-| Autorii nu propun o scală nouă; analiza vine „before proposing a new methodology” | 153 ✅ |
-| Dovada empirică vine dintr-un raport de cercetare | 155, ref. 83 ✅ |
-| Aaker e folosit și în 2025 (Bayburt) | ❌ depinde de Kara și Durulmuș |
+| Autorii nu propun o scală nouă; analiza vine „before proposing a new methodology” | A&K 153 ✅ |
+| **Corectat:** înainte scria „O singură dovadă empirică”, ceea ce era fals. Articolul folosește și replicarea Davies (p. 152). Acum scrie „Puține date proprii”: raportul Romaniuk și Ehrenberg și replicarea Davies. | A&K 152, 153, 155 ✅ |
+| Studiul din 2025 pornește tot de la cele 5 dimensiuni, dar una se rupe | Kara 442–444 ✅ |
+| (note) Autorii consideră personalitatea brandului un concept util și o fațetă cheie a identității | A&K 143, 144 ✅ |
 
 ## Slide 16: Concluzie
 Concluzia ta, nu o afirmație factuală.
@@ -140,15 +154,15 @@ Concluzia ta, nu o afirmație factuală.
 | Referință | Status |
 |---|---|
 | Azoulay și Kapferer (2003) | 143 ✅ |
-| Aaker (1997) | ⚠️ articolul (p. 153, ref. 5) scrie „Vol. 24, pp. 347–356”. Pe slide a rămas „34(3)” din .pptx. Volumul 34 e cel corect, iar „24” e o greșeală de tipar în articol, dar asta nu o pot verifica din PDF-urile primite. |
+| Aaker (1997) | ✅ 34(3), 347–356 apare la Kara și Durulmuș, p. 450. Articolul A&K scrie greșit „Vol. 24” (p. 153). |
 | Churchill (1979) | 154, ref. 22 ✅ |
 | Davies et al. (2001) | 155, ref. 79 ✅ |
 | Romaniuk și Ehrenberg (2003) | 155, ref. 83 ✅ |
-| Kara și Durulmuș (2025) | ❌ neverificat |
+| Kara și Nur Durulmuș (2025), 9(1), 438–453, DOI 10.29216/ueip.1635118 | Kara 438 ✅ |
 
 ---
 
 ## Alte corecturi față de .pptx
 - **Slide 4, sursa:** era „pp. 144–145”. Am pus „pp. 143–145, 154”, pentru că „prima scală (1997)” e la p. 143, iar anii 1958 / 1970 vin din bibliografie (p. 154).
-- **Slide 13:** în .pptx, competența (0,34) era „efectul cel mai puternic”, deși entuziasmul are 0,38. Am precizat „cel mai puternic efect **asupra interesului**”.
+- **Slide 13:** în .pptx, competența (0,34) era „efectul cel mai puternic”, deși entuziasmul are 0,38. Am precizat „cel mai puternic efect **asupra interesului**”. Am adăugat eliminarea dimensiunii Rafinament (pp. 443–444).
 - **Slide 7, sursa:** am extins la pp. 147–151, pentru că „inteligența exclusă” e la p. 151.
